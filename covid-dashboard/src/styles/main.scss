@@ -14,7 +14,8 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  transition: all 0.25s ease-out;
+  @include trans();
+  @include customScroll($milk-color, $text-light-color);
 }
 
 body {
@@ -53,13 +54,11 @@ img {
   position: relative;
   &__contentLeft,
   &__contentRight {
-    // @include flexModel(stretch, stretch, column);
     position: absolute;
     justify-content: center;
     align-items: center;
     width: 50%;
-    // height: 100%;
-    padding: 4rem 1rem 8rem;
+    padding: 2rem 1rem 8rem;
   }
   &__contentLeft {
     left: 0;
@@ -71,17 +70,40 @@ img {
   }
 }
 
+@media (max-width: 1000px) {
+  .contentWrapper {
+    display: flex;
+    flex-direction: column;
+    &__contentLeft,
+    &__contentRight {
+      position: relative;
+      display: block;
+      padding: 0;
+    }
+    &__contentLeft {
+      padding: 4rem 0;
+      width: 100%;
+    }
+    &__contentRight {
+      width: 100%;
+      padding: 0 0 10rem;
+    }
+  }
+}
+
 .footer {
   @include flexModel(space-between);
   @include fontstyle();
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
-  height: 6rem;
+  padding: 2rem 4rem;
   background-color: #000;
   color: #fff;
   z-index: 999;
   .productionTeam {
+    max-width: 33%;
+    text-align: right;
     a {
       color: #fff;
       text-decoration: underline;
@@ -95,6 +117,34 @@ img {
     .logo {
       margin: 0 0.5rem;
     }
+  }
+}
+
+@media (max-width: 620px) {
+  .productionTeam {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 550px) {
+  .footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 6rem;
+    .productionTeam {
+      text-align: center;
+      max-width: 80%;
+      margin-bottom: .5rem;
+    }
+    .logosWrapper {
+      order: 1;
+      position: absolute;
+      top: 4rem;
+    }
+    .copyright {
+      order: 1;
+    }
+    
   }
 }
 
@@ -135,6 +185,8 @@ main {
 .global {
   @include moduleWidth(40%);
   min-width: 32rem;
+  height: 10vh;
+  min-height: 12rem;
 
   &__header {
     @include fontstyle(1.4rem, $medium);
@@ -149,6 +201,7 @@ main {
 .search {
   @include moduleWidth(40%);
   min-width: 32rem;
+  z-index: 9;
   @include flexModel(center, center);
   .searchIcon {
     position: relative;
@@ -156,7 +209,7 @@ main {
     border-radius: 1rem 0 0 1rem;
     padding: 2.1rem 0rem 2.1rem 1rem;
     width: 3rem;
-    z-index: 9;
+
     &:after {
       content: url('../assets/icons/search.svg');
       position: absolute;
@@ -193,7 +246,7 @@ main {
       right: 1rem;
       opacity: 0.5;
       transform: translateY(-40%);
-      transition: all 0.25s ease;
+      @include trans();
     }
     &:hover {
       &:after {
@@ -217,7 +270,6 @@ table {
     text-align: center;
     border: 0.1rem solid $table-div-color;
     padding: 1rem;
-    width: 33%;
   }
   tr {
     cursor: pointer;
@@ -225,6 +277,14 @@ table {
       background: $table-active-row;
     }
   }
+}
+
+.short-col {
+  width: 5%;
+  min-width: 6rem;
+}
+.long-col {
+  width: 45%;
 }
 
 .tableHeaders {
@@ -235,27 +295,72 @@ table {
   th:last-child {
     border-radius: 0 1rem 0 0;
   }
+  th {
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 }
 
 .mainTable {
   width: 100%;
+  overflow-y: scroll;
+  position: absolute;
+  top: 4rem;
 }
 
 .countries {
-  @include moduleWidth();
   width: 100%;
+  height: 50vh;
+  min-height: 45rem;
   padding: 0;
   z-index: 11;
-  &__mainTable {
-
-  }
+  position: relative;
   &__fixedHeader {
-    th:first-child {
-      max-width: 5rem!important;
-      min-width: 5rem!important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 1rem);
+    z-index: 999;
+    th:last-child {
+      border-radius: 0;
+      // width: 100%; for tablet adaptive
+      &:after {
+        content: '';
+        width: 1.1rem;
+        height: 3.8rem;
+        background: $table-headers-color;
+        display: flex;
+        position: absolute;
+        right: -0.9rem;
+        top: 0.1rem;
+        border-radius: 0 1rem 0 0;
+      }
     }
   }
+  &__table-wrapper {
+    width: 100%;
+    height: calc(100% - 4rem);
+    overflow-y: scroll;
+    position: absolute;
+    top: 4rem;
+    .mainTable {
+      top: 0rem;
+    }
+  }
+  @include customScroll();
 }
+@media (max-height: 650px) {
+  .contentWrapper {
+    &__contentLeft {
+      padding-top: 2rem;
+    }
+  }
+  .countries {
+    min-height: 35rem;
+  }
+}
+
 
 .flag img {
   width: 1.5rem;
@@ -269,13 +374,23 @@ table {
   justify-content: space-between;
   padding: 0;
   z-index: 12;
+  position: relative;
+  height: 13.5rem;
+  table {
+    td {
+      width: 33%;
+    }
+  }
   &__tabs {
+    position: absolute;
+    bottom: 0;
     margin-top: 1rem;
     width: 100%;
     display: flex;
     justify-content: space-between;
     background: transparent;
-    .left, .right {
+    .left,
+    .right {
       display: flex;
       width: 49%;
       text-align: center;
@@ -289,7 +404,7 @@ table {
     }
     .right {
       .tabButton {
-          border-radius: 0 0 1rem 0;
+        border-radius: 0 0 1rem 0;
       }
     }
     .tabButton {
@@ -297,9 +412,9 @@ table {
       padding: 1rem;
       width: 100%;
       cursor: pointer;
-      border: .1rem solid #1B1C1F;
-      background: #5F6774;
-      transition: all 0.25s ease;
+      border: 0.1rem solid #1b1c1f;
+      background: #5f6774;
+      @include trans();
       &:hover {
         background: #313640;
         color: rgba(255, 255, 255, 0.6);
@@ -309,7 +424,7 @@ table {
 }
 
 .pressed {
-  background: #313640!important;
+  background: #313640 !important;
   color: rgba(255, 255, 255, 0.6);
   box-shadow: $pressed;
 }
@@ -317,10 +432,9 @@ table {
 .map {
   width: 100%;
   min-width: 32rem;
-  height: 48vh;
+  height: 45vh;
   min-height: 52rem;
   background-color: #fff;
-
 }
 
 .graph {
