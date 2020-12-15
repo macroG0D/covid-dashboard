@@ -1,0 +1,18 @@
+@mixin fontstyle($size: 1.4rem, $fontWeight: $regular, $color: $text-light-color) {
+  font-size: $size;
+  font-family: $ibmPlexSans;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+@mixin flexModel($justify: center, $align: center, $direction: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
+
+@mixin moduleWidth($width: 100%, $minWidth: 32rem) {
+  width: $width;
+  min-width: $minWidth;
+}

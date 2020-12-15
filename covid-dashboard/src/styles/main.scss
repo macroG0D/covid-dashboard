@@ -1,0 +1,332 @@
+@import '~normalize-scss';
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap');
+@import './abstracts/mixins';
+@import './abstracts/variables';
+
+:root {
+  font-size: 10px;
+  font-family: $ibmPlexSans;
+  font-weight: 400;
+  color: $text-light-color;
+}
+
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  transition: all 0.25s ease-out;
+}
+
+body {
+  background: $bg-color;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+h1 {
+  @include fontstyle(1.4rem, $medium);
+}
+
+p {
+  @include fontstyle(1.4rem, $medium);
+}
+
+img {
+  max-width: 100%;
+}
+
+.contentWrapper {
+  @include flexModel(space-between);
+  width: 96vw;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+  &__contentLeft,
+  &__contentRight {
+    // @include flexModel(stretch, stretch, column);
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    // height: 100%;
+    padding: 4rem 1rem 8rem;
+  }
+  &__contentLeft {
+    left: 0;
+    top: 0;
+  }
+  &__contentRight {
+    top: 0;
+    right: 0;
+  }
+}
+
+.footer {
+  @include flexModel(space-between);
+  @include fontstyle();
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 6rem;
+  background-color: #000;
+  color: #fff;
+  z-index: 999;
+  .productionTeam {
+    a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  }
+  .logosWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .logo {
+      margin: 0 0.5rem;
+    }
+  }
+}
+
+main {
+  height: 100vh;
+  @include fontstyle(1.6rem, $medium);
+}
+
+.moduleWrapper {
+  @include moduleWidth();
+  @include flexModel();
+  margin-top: 2rem;
+}
+
+.global,
+.countries,
+.details,
+.map,
+.graph {
+  @include flexModel(center, center, column);
+  border-radius: 1rem;
+  padding: 2rem 1.6rem 2rem;
+}
+
+.global,
+.search,
+.countries {
+  box-shadow: $concave;
+  background: $bg-color;
+}
+
+.map,
+.graph {
+  box-shadow: $pressedHard;
+  background: $bg-color;
+}
+
+.global {
+  @include moduleWidth(40%);
+  min-width: 32rem;
+
+  &__header {
+    @include fontstyle(1.4rem, $medium);
+    margin: 0;
+  }
+  &__total {
+    @include fontstyle(4.8rem, $regular);
+  }
+  z-index: 10;
+}
+
+.search {
+  @include moduleWidth(40%);
+  min-width: 32rem;
+  @include flexModel(center, center);
+  .searchIcon {
+    position: relative;
+    background: $milk-color;
+    border-radius: 1rem 0 0 1rem;
+    padding: 2.1rem 0rem 2.1rem 1rem;
+    width: 3rem;
+    z-index: 9;
+    &:after {
+      content: url('../assets/icons/search.svg');
+      position: absolute;
+      top: 50%;
+      right: 0;
+      opacity: 0.3;
+      transform: translateY(-40%);
+    }
+  }
+  .search_tab {
+    @include moduleWidth(100%, auto);
+    @include fontstyle(1.4rem, $medium);
+    position: relative;
+    background: $milk-color;
+    padding: 1.2rem 5rem 1.2rem 0.5rem;
+    color: #000;
+    outline: none;
+    border: none;
+    &::placeholder {
+      @include fontstyle(1.6rem, $medium, $placeholder-text);
+    }
+  }
+  .virtualKeyboard_button {
+    position: relative;
+    background: $milk-color;
+    border-radius: 0rem 1rem 1rem 0;
+    height: 4.2rem;
+    width: 1rem;
+    cursor: pointer;
+    &:after {
+      content: url('../assets/icons/keyboard.svg');
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      opacity: 0.5;
+      transform: translateY(-40%);
+      transition: all 0.25s ease;
+    }
+    &:hover {
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+table {
+  border-spacing: 0;
+  th {
+    text-align: center;
+    @include fontstyle(1.4rem, $medium, $tableFields_bg-color);
+    background: $table-headers-color;
+    padding: 1rem;
+    border: 0.1rem solid $table-div-color;
+    width: 33%;
+  }
+  td {
+    text-align: center;
+    border: 0.1rem solid $table-div-color;
+    padding: 1rem;
+    width: 33%;
+  }
+  tr {
+    cursor: pointer;
+    &:hover {
+      background: $table-active-row;
+    }
+  }
+}
+
+.tableHeaders {
+  width: 100%;
+  th:first-child {
+    border-radius: 1rem 0 0;
+  }
+  th:last-child {
+    border-radius: 0 1rem 0 0;
+  }
+}
+
+.mainTable {
+  width: 100%;
+}
+
+.countries {
+  @include moduleWidth();
+  width: 100%;
+  padding: 0;
+  z-index: 11;
+  &__mainTable {
+
+  }
+  &__fixedHeader {
+    th:first-child {
+      max-width: 5rem!important;
+      min-width: 5rem!important;
+    }
+  }
+}
+
+.flag img {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 1rem;
+}
+
+.details {
+  @include moduleWidth(100%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  z-index: 12;
+  &__tabs {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background: transparent;
+    .left, .right {
+      display: flex;
+      width: 49%;
+      text-align: center;
+    }
+    .left {
+      .tabButton {
+        &:first-child {
+          border-radius: 0 0 0 1rem;
+        }
+      }
+    }
+    .right {
+      .tabButton {
+          border-radius: 0 0 1rem 0;
+      }
+    }
+    .tabButton {
+      margin: 1px;
+      padding: 1rem;
+      width: 100%;
+      cursor: pointer;
+      border: .1rem solid #1B1C1F;
+      background: #5F6774;
+      transition: all 0.25s ease;
+      &:hover {
+        background: #313640;
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+  }
+}
+
+.pressed {
+  background: #313640!important;
+  color: rgba(255, 255, 255, 0.6);
+  box-shadow: $pressed;
+}
+
+.map {
+  width: 100%;
+  min-width: 32rem;
+  height: 48vh;
+  min-height: 52rem;
+  background-color: #fff;
+
+}
+
+.graph {
+  width: 100%;
+  min-width: 32rem;
+  height: 30vh;
+  min-height: 32rem;
+  background-color: #fff;
+}
