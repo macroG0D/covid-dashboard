@@ -4,12 +4,21 @@ export default class DataFetcher {
   async getCovidData() {
     const countriesResponse = await fetch('https://api.covid19api.com/summary');
     const allCountries = await countriesResponse.json();
+    const WORD = {
+      Country: 'Word',
+      NewConfirmed: allCountries.Global.NewConfirmed,
+      TotalConfirmed: allCountries.Global.TotalConfirmed,
+    };
+    // add global word stats object to main data array
+    allCountries.Countries.push(WORD);
     this.updateStatic(allCountries);
     return allCountries;
   }
 
   async getFlagsAndPopulation() {
-    const flagsAndPopulationResponse = await fetch('https://restcountries.eu/rest/v2/all?fields=name;population;flag');
+    const flagsAndPopulationResponse = await fetch(
+      'https://restcountries.eu/rest/v2/all?fields=name;population;flag',
+    );
     const flagsAndPopulation = await flagsAndPopulationResponse.json();
     return flagsAndPopulation;
   }
@@ -18,10 +27,25 @@ export default class DataFetcher {
     DataFetcher.data = data;
   }
 
+  async composeAllData() {
+    const flags = await this.getFlagsAndPopulation();
+    const covidAPIdata = DataFetcher.data.Countries;
+    covidAPIdata.forEach((country) => {
+      flags.forEach((flag) => {
+        if (flag.name === country.Country) {
+          // eslint-disable-next-line no-param-reassign
+          country.flag = flag.flag;
+          // eslint-disable-next-line no-param-reassign
+          country.population = flag.population;
+        }
+      });
+    });
+    covidAPIdata.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
+  }
+
   // sync and update all the data in all modules
   async updateModules() {
-    // console.log(Date.now());
     await this.getCovidData();
-    // console.log(Date.now());
+    await this.composeAllData();
   }
 }
