@@ -161,7 +161,7 @@ main {
 
 .global,
 .countries,
-.details,
+.summary,
 .map,
 .graph {
   @include flexModel(center, center, column);
@@ -298,6 +298,7 @@ table {
   th {
     &:hover {
       opacity: 0.8;
+      letter-spacing: .1rem;
     }
   }
 }
@@ -347,9 +348,20 @@ table {
     .mainTable {
       top: 0rem;
     }
+    td {
+      &:nth-child(2) {
+        font-weight: 400;
+      }
+    }
   }
   @include customScroll();
+  .flagImg {
+    max-width: 2rem;
+    max-height: 1.5rem;
+    margin-right: 1rem;
+  }
 }
+
 @media (max-height: 650px) {
   .contentWrapper {
     &__contentLeft {
@@ -361,14 +373,7 @@ table {
   }
 }
 
-
-.flag img {
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-right: 1rem;
-}
-
-.details {
+.summary {
   @include moduleWidth(100%);
   display: flex;
   justify-content: space-between;
