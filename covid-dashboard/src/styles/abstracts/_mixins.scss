@@ -1,0 +1,58 @@
+@mixin fontstyle(
+  $size: 1.4rem,
+  $fontWeight: $regular,
+  $color: $text-light-color
+) {
+  font-size: $size;
+  font-family: $ibmPlexSans;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+@mixin flexModel($justify: center, $align: center, $direction: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
+
+@mixin moduleWidth($width: 100%, $minWidth: 32rem) {
+  width: $width;
+  min-width: $minWidth;
+}
+
+@mixin trans($speed: 0.25s, $interpolate: ease-out, $prop: all) {
+  transition: $prop $speed $interpolate;
+}
+
+@mixin customScroll($main-color: $accent-color, $hovered-color: $accent-hovered) {
+  ::-webkit-scrollbar {
+    width: 1rem;
+    position: fixed;
+    background-color: $table-div-color;
+    border-radius: 0 0 .5rem 0;
+  }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px $table-div-color;
+    border-radius: 1px;
+    border-radius: 0 0 .5rem 0;
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: $main-color;
+    box-shadow: inset 0 0 5px $table-div-color;
+    border-radius: 0 0 .5rem 0;
+  }
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: $hovered-color;
+  }
+  ::-webkit-scrollbar-track-piece {
+    background-color: $table-div-color;
+    border-radius: 0 0 .5rem 0;
+  }
+  ::-webkit-scrollbar-corner {
+    background: $table-div-color;
+  }
+}
