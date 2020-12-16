@@ -24,6 +24,7 @@ body {
   background-attachment: fixed;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 a {
@@ -54,7 +55,6 @@ img {
   height: 100%;
   margin: 0 auto;
   position: relative;
-  overflow: hidden;
   &__contentLeft,
   &__contentRight {
     display: flex;
@@ -77,10 +77,12 @@ img {
 }
 
 @media (max-width: 1000px) {
+  body {
+    overflow: visible;
+  }
   .contentWrapper {
     display: flex;
     flex-direction: column;
-    overflow: visible;
     &__contentLeft,
     &__contentRight {
       position: relative;
@@ -100,8 +102,10 @@ img {
 }
 
 @media (max-height: 1000px) {
-  .contentWrapper {
+  body {
     overflow: visible;
+  }
+  .contentWrapper {
     &__contentLeft,
     &__contentRight {
       padding: 2rem 1rem 12rem;
@@ -238,7 +242,7 @@ main {
       transform: translateY(-40%);
     }
   }
-  .search_tab {
+  .searchBar {
     @include moduleWidth(100%, auto);
     @include fontstyle(1.4rem, $medium);
     position: relative;
@@ -474,4 +478,8 @@ table {
   height: 30vh;
   min-height: 32rem;
   background-color: #fff;
+}
+
+.hiddenItem {
+  display: none;
 }
