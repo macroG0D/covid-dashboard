@@ -43,6 +43,13 @@ export default class DataFetcher {
     covidAPIdata.sort((a, b) => b.TotalConfirmed - a.TotalConfirmed);
   }
 
+  async fetchDataByCountryAndDate(country, fromDate, toDate )
+  {
+    const byCountryAndDateResponse = await fetch(`https://api.covid19api.com/country/${country}/status/confirmed?from=${fromDate}&to=${toDate}`);
+    const jsonResponse = await byCountryAndDateResponse.json();
+    return jsonResponse;
+  }
+
   // sync and update all the data in all modules
   async updateModules() {
     await this.getCovidData();
