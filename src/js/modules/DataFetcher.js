@@ -17,7 +17,7 @@ export default class DataFetcher {
 
   async getFlagsAndPopulation() {
     const flagsAndPopulationResponse = await fetch(
-      'https://restcountries.eu/rest/v2/all?fields=name;population;flag',
+      'https://restcountries.eu/rest/v2/all?fields=name;alpha2Code;population;flag',
     );
     const flagsAndPopulation = await flagsAndPopulationResponse.json();
     return flagsAndPopulation;
@@ -32,7 +32,7 @@ export default class DataFetcher {
     const covidAPIdata = DataFetcher.data.Countries;
     covidAPIdata.forEach((country) => {
       flags.forEach((flag) => {
-        if (flag.name === country.Country) {
+        if (flag.alpha2Code === country.CountryCode) {
           // eslint-disable-next-line no-param-reassign
           country.flag = flag.flag;
           // eslint-disable-next-line no-param-reassign
