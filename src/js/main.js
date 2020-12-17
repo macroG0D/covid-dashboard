@@ -4,6 +4,7 @@ import CountriesTable from './modules/CountriesTable';
 import Global from './modules/Global';
 import Summary from './modules/Summary';
 import Search from './modules/Search';
+import Graph from './modules/Graph';
 
 // DATA FROM API
 async function fetchData() {
@@ -25,3 +26,7 @@ modulesController();
 const searchInput = document.querySelector('.searchBar');
 const searchBar = new Search();
 searchInput.addEventListener('input', searchBar.livesearch);
+
+// Charts\Graph
+const graph = new Graph();
+graph.showChart();

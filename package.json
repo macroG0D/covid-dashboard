@@ -63,6 +63,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
+    "chart.js": "^2.9.4",
     "normalize-scss": "^7.0.1"
   }
 }
