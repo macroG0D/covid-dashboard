@@ -228,7 +228,7 @@ main {
 .search {
   @include moduleWidth(40%);
   min-width: 32rem;
-  z-index: 9;
+  z-index: 10;
   @include flexModel(center, center);
   .searchIcon {
     position: relative;
@@ -465,6 +465,13 @@ table {
 .pressed {
   background: #313640 !important;
   color: rgba(255, 255, 255, 0.6);
+  box-shadow: $pressed;
+}
+
+.selected {
+  background: #313640 !important;
+  color: #fff;
+  font-weight: $medium;
   box-shadow: $pressed;
 }
 
