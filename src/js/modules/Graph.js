@@ -1,33 +1,37 @@
+import DataFetcher from './DataFetcher';
+
 const Chart = require('chart.js');
 
 export default class Graph {
   static chart = Chart;
 
-  showChart() {
-    const ctx = document.getElementById('myChart');
+  async showChart(currentCountry) {
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    const dataFetcher = new DataFetcher();//TODO DYNAMIC
+    let graphData = await fillArrayWithPerMonthCases(dataFetcher, currentCountry);
+
     const myChart = new Chart(ctx, {
-      type: 'bar',
+      type: 'line',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['August', 'September', 'October', 'November'],
         datasets: [
           {
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: `${currentCountry}`,
+             fill: false,
+
+            data: graphData,
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',
               'rgba(255, 206, 86, 0.2)',
               'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
             ],
             borderColor: [
               'rgba(255, 99, 132, 1)',
               'rgba(54, 162, 235, 1)',
               'rgba(255, 206, 86, 1)',
               'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
             ],
             borderWidth: 1,
           },
@@ -46,4 +50,16 @@ export default class Graph {
       },
     });
   }
+}
+
+
+async function fillArrayWithPerMonthCases(dataFetcher, country) {
+    let result = []
+    for (let i = 8; i < 12; i += 1) {
+      let response = await dataFetcher.fetchDataByCountryAndDate(country, `2020-${i < 10 ? '0' + i : i}-01T00:00:00Z`,`2020-${i+1 < 10 ? '0' + (i+1) : i+1}-01T00:00:00Z`)
+      let mappedToCases = response.map((el) => el['Cases']);
+      let monthSum = mappedToCases[mappedToCases.length - 1] - mappedToCases[0];
+      result.push(monthSum)
+    }
+    return result;
 }

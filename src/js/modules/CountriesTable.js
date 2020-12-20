@@ -3,7 +3,7 @@ import CurrentCountry from './CurrentCountry';
 export default class CountriesTable {
   static table = document.querySelector('.countriesTableBody');
 
-  static updateTable(data) {
+  static updateTable(data, handleCountrySelect) {
     const tbody = CountriesTable.table;
 
     // remove old rows on each table update
@@ -49,6 +49,9 @@ export default class CountriesTable {
       tr.appendChild(tdPosition);
       tr.appendChild(tdCountry);
       tr.appendChild(tdCases);
+      tr.addEventListener('click', () => {
+        handleCountrySelect(country.Slug);
+      })
       tbody.appendChild(tr);
     });
   }
