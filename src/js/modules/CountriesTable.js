@@ -5,7 +5,6 @@ export default class CountriesTable {
 
   static updateTable(data) {
     const tbody = CountriesTable.table;
-
     // remove old rows on each table update
     if (tbody.children.length > 0) {
       tbody.innerHTML = '';
@@ -49,6 +48,11 @@ export default class CountriesTable {
       tr.appendChild(tdPosition);
       tr.appendChild(tdCountry);
       tr.appendChild(tdCases);
+
+      // tr.addEventListener('click', () => {
+      //   handleCountrySelect(country.Slug);
+      // })
+
       tbody.appendChild(tr);
     });
   }

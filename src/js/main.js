@@ -21,6 +21,8 @@ async function modulesController() {
   Global.updateGlobal(DataFetcher.data);
   Summary.updateSummary(DataFetcher.data);
   Map.updateMap(DataFetcher.data);
+  Graph.showChart('ukraine'); // DataFetcher.data[0] === World || DataFetcher.data === all countries include world
+  // console.log(DataFetcher.data[0]); // test data format
 }
 
 modulesController();
@@ -29,10 +31,6 @@ modulesController();
 const searchInput = document.querySelector('.searchBar');
 const searchBar = new Search();
 searchInput.addEventListener('input', searchBar.livesearch);
-
-// Charts\Graph
-const graph = new Graph();
-graph.showChart();
 
 // SUMMARY buttons
 const btnTotal = document.querySelector('#btnTotal');
@@ -88,10 +86,9 @@ countriesTable.addEventListener('click', (event) => {
       CurrentCountry.selectedCountryID = selectedCountry.getAttribute('id');
       Summary.updateSummary(DataFetcher.data);
       Global.updateGlobal(DataFetcher.data);
-      Map.updateMap();
     }
   }
 });
 
 // FULL SCREEN
-const moduleWrappers = document.querySelectorAll('.moduleWrapper');
+// const moduleWrappers = document.querySelectorAll('.moduleWrapper');
