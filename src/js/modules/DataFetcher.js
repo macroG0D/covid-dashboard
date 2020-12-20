@@ -18,6 +18,8 @@ export default class DataFetcher {
     WORLD.country = 'World';
     WORLD.countryInfo = {
       flag: './assets/icons/worldmap.png',
+      long: 0,
+      lat: 0,
     };
     // add global world stats object to main data array
     allCountries.push(WORLD);
@@ -37,7 +39,8 @@ export default class DataFetcher {
     const countryPopulation = population;
     const HUNDREDK = 100000;
     const hundredK = countryPopulation / HUNDREDK;
-    return Math.ceil(number / hundredK);
+    // return Math.floor(number / hundredK);
+    return number / hundredK;
   }
 
   static insert100k() {

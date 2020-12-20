@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.png" type="image/png">
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
   <title>Covid-19</title>
 </head>
 
@@ -18,35 +19,34 @@
             <div class="global__total"></div>
           </div>
         </div>
-        <div class="moduleWrapper">
-          <div class="search">
-            <div class="searchIcon"></div>
-            <input class="searchBar" placeholder="Search">
-            <div class="virtualKeyboard_button"></div>
-          </div>
-        </div>
 
-        <div class="moduleWrapper">
-          <div class="countries">
+        <div class="moduleWrapper searchANDcountriesTableWrapper">
 
-            <table class="tableHeaders countries__fixedHeader">
-              <tbody>
-                <tr>
-                  <th class="short-col">#</th>
-                  <th class="long-col">Country</th>
-                  <th class="long-col">Cases</th>
-                </tr>
-              </tbody>
-            </table>
-
-            <div class="countries__table-wrapper">
-              <table class="countries__mainTable mainTable">
-                <tbody class="countriesTableBody">
+            <div class="search">
+              <div class="searchIcon"></div>
+              <input class="searchBar" placeholder="Search">
+              <div class="virtualKeyboard_button"></div>
+            </div>
+            <div class="countries">
+  
+              <table class="tableHeaders countries__fixedHeader">
+                <tbody>
+                  <tr>
+                    <th class="short-col">#</th>
+                    <th class="long-col">Country</th>
+                    <th class="long-col">Total Cases</th>
+                  </tr>
                 </tbody>
               </table>
+  
+              <div class="countries__table-wrapper">
+                <table class="countries__mainTable mainTable">
+                  <tbody class="countriesTableBody">
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-          </div>
         </div>
 
         <div class="moduleWrapper">
@@ -87,15 +87,18 @@
         </div>
 
       </div>
+      
       <div class="contentWrapper__contentRight">
         <div class="moduleWrapper">
-          <div class="map">map</div>
+          <div class="map" id="MAP"></div>
         </div>
+
         <div class="moduleWrapper">
           <div class="graph">
             <canvas class="graph__canvas" id="myChart" width="335px"></canvas>
           </div>
         </div>
+
       </div>
     </div>
   </main>
