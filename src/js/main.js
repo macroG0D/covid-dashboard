@@ -8,17 +8,6 @@ import Search from './modules/Search';
 import Map from './modules/Map';
 import Graph from './modules/Graph';
 
-const DEFAULT_SELECTED_COUNTRY = 'ukraine';
-const selectedCountry = DEFAULT_SELECTED_COUNTRY;
-
-// Charts\Graph
-const graph = new Graph();
-graph.showChart(selectedCountry);
-
-const handleCountryChange = (country) => {
-  graph.showChart(country);
-}
-
 // DATA FROM API
 async function fetchData() {
   const dataFetcher = new DataFetcher();
@@ -28,10 +17,12 @@ async function fetchData() {
 // DATA FROM API TO MODULES
 async function modulesController() {
   await fetchData();
-  CountriesTable.updateTable(DataFetcher.data, handleCountryChange);
+  CountriesTable.updateTable(DataFetcher.data);
   Global.updateGlobal(DataFetcher.data);
   Summary.updateSummary(DataFetcher.data);
   Map.updateMap(DataFetcher.data);
+  Graph.showChart('ukraine'); // DataFetcher.data[0] === World || DataFetcher.data === all countries include world
+  // console.log(DataFetcher.data[0]); // test data format
 }
 
 modulesController();
@@ -40,10 +31,6 @@ modulesController();
 const searchInput = document.querySelector('.searchBar');
 const searchBar = new Search();
 searchInput.addEventListener('input', searchBar.livesearch);
-
-// Charts\Graph
-const graph = new Graph();
-graph.showChart();
 
 // SUMMARY buttons
 const btnTotal = document.querySelector('#btnTotal');
@@ -99,10 +86,9 @@ countriesTable.addEventListener('click', (event) => {
       CurrentCountry.selectedCountryID = selectedCountry.getAttribute('id');
       Summary.updateSummary(DataFetcher.data);
       Global.updateGlobal(DataFetcher.data);
-      Map.updateMap();
     }
   }
 });
 
 // FULL SCREEN
-const moduleWrappers = document.querySelectorAll('.moduleWrapper');
+// const moduleWrappers = document.querySelectorAll('.moduleWrapper');

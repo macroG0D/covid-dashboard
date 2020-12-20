@@ -2,14 +2,26 @@ import DataFetcher from './DataFetcher';
 
 const Chart = require('chart.js');
 
+async function fillArrayWithPerMonthCases(dataFetcher, country) {
+  const result = [];
+  for (let i = 8; i < 12; i += 1) {
+    // eslint-disable-next-line no-await-in-loop
+    // eslint-disable-next-line max-len
+    // const response = await dataFetcher.fetchDataByCountryAndDate(country, `2020-${i < 10 ? `0${i}` : i}-01T00:00:00Z`, `2020-${i + 1 < 10 ? `0${i + 1}` : i + 1}-01T00:00:00Z`);
+    // const mappedToCases = response.map((el) => el.Cases);
+    // const monthSum = mappedToCases[mappedToCases.length - 1] - mappedToCases[0];
+    // result.push(monthSum);
+  }
+  return result;
+}
+
 export default class Graph {
   static chart = Chart;
 
-  async showChart(currentCountry) {
+  static showChart(currentCountry) {
     const ctx = document.getElementById('myChart').getContext('2d');
-
-    const dataFetcher = new DataFetcher();//TODO DYNAMIC
-    let graphData = await fillArrayWithPerMonthCases(dataFetcher, currentCountry);
+    // const dataFetcher = new DataFetcher(); // TODO DYNAMIC
+    const graphData = fillArrayWithPerMonthCases(DataFetcher, currentCountry);
 
     const myChart = new Chart(ctx, {
       type: 'line',
@@ -18,7 +30,7 @@ export default class Graph {
         datasets: [
           {
             label: `${currentCountry}`,
-             fill: false,
+            fill: false,
 
             data: graphData,
             backgroundColor: [
@@ -50,16 +62,4 @@ export default class Graph {
       },
     });
   }
-}
-
-
-async function fillArrayWithPerMonthCases(dataFetcher, country) {
-    let result = []
-    for (let i = 8; i < 12; i += 1) {
-      let response = await dataFetcher.fetchDataByCountryAndDate(country, `2020-${i < 10 ? '0' + i : i}-01T00:00:00Z`,`2020-${i+1 < 10 ? '0' + (i+1) : i+1}-01T00:00:00Z`)
-      let mappedToCases = response.map((el) => el['Cases']);
-      let monthSum = mappedToCases[mappedToCases.length - 1] - mappedToCases[0];
-      result.push(monthSum)
-    }
-    return result;
 }

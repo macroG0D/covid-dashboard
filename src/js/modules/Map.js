@@ -4,7 +4,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoieWVtZGlnaXRhbCIsImEiOiJjanl0eHMxNm0wMGVpM2Jtb
 const map = new mapboxgl.Map({
   // renderWorldCopies: false,
   container: 'MAP',
-  style: 'mapbox://styles/yemdigital/ckix544js5g6i19qkmoh51nbz',
+  // style: 'mapbox://styles/yemdigital/ckix544js5g6i19qkmoh51nbz',
   continuousWorld: false,
   noWrap: true,
   zoom: 1,
