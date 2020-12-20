@@ -5,6 +5,7 @@ import CurrentCountry from './modules/CurrentCountry';
 import Global from './modules/Global';
 import Summary from './modules/Summary';
 import Search from './modules/Search';
+import Map from './modules/Map';
 import Graph from './modules/Graph';
 
 // DATA FROM API
@@ -19,6 +20,7 @@ async function modulesController() {
   CountriesTable.updateTable(DataFetcher.data);
   Global.updateGlobal(DataFetcher.data);
   Summary.updateSummary(DataFetcher.data);
+  Map.updateMap(DataFetcher.data);
 }
 
 modulesController();
@@ -86,6 +88,10 @@ countriesTable.addEventListener('click', (event) => {
       CurrentCountry.selectedCountryID = selectedCountry.getAttribute('id');
       Summary.updateSummary(DataFetcher.data);
       Global.updateGlobal(DataFetcher.data);
+      Map.updateMap();
     }
   }
 });
+
+// FULL SCREEN
+const moduleWrappers = document.querySelectorAll('.moduleWrapper');

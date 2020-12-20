@@ -30,6 +30,7 @@
     "@babel/core": "^7.12.3",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
+    "@types/mapbox-gl": "^2.0.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
@@ -64,6 +65,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "chart.js": "^2.9.4",
+    "mapbox-gl": "^2.0.0",
     "normalize-scss": "^7.0.1"
   }
 }

@@ -52,7 +52,7 @@ img {
 .contentWrapper {
   @include flexModel(space-between);
   width: 96vw;
-  height: 100%;
+  height: calc(100% - 6rem);
   margin: 0 auto;
   position: relative;
   &__contentLeft,
@@ -63,8 +63,8 @@ img {
     justify-content: space-between;
     align-items: space-between;
     width: 50%;
-    padding: 2rem 1rem 16rem;
-    height: 100vh;
+    padding: 2rem 1rem 5rem;
+    height: 100%;
   }
   &__contentLeft {
     left: 0;
@@ -83,12 +83,12 @@ img {
   .contentWrapper {
     display: flex;
     flex-direction: column;
+    height: auto;
     &__contentLeft,
     &__contentRight {
       position: relative;
       display: block;
       padding: 0;
-      height: auto;
     }
     &__contentLeft {
       padding: 4rem 0;
@@ -106,10 +106,10 @@ img {
     overflow: visible;
   }
   .contentWrapper {
+    // height: auto;
     &__contentLeft,
     &__contentRight {
-      padding: 2rem 1rem 12rem;
-      height: auto;
+      padding: 0rem 1rem 2rem;
     }
   }
 }
@@ -149,6 +149,9 @@ img {
   }
 }
 @media (max-width: 550px) {
+  .contentWrapper {
+    padding-bottom: 10rem;
+  }
   .footer {
     display: flex;
     flex-direction: column;
@@ -157,7 +160,7 @@ img {
     .productionTeam {
       text-align: center;
       max-width: 80%;
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
     }
     .logosWrapper {
       order: 1;
@@ -167,7 +170,6 @@ img {
     .copyright {
       order: 1;
     }
-    
   }
 }
 
@@ -183,7 +185,8 @@ main {
 .moduleWrapper {
   @include moduleWidth();
   @include flexModel();
-  margin-top: 2rem;
+  padding: 3% 0 0;
+  height: 100%;
 }
 
 .global,
@@ -214,6 +217,7 @@ main {
   min-width: 32rem;
   height: 10vh;
   min-height: 12rem;
+  margin-bottom: 1rem;
 
   &__header {
     @include fontstyle(1.4rem, $medium);
@@ -225,8 +229,14 @@ main {
   z-index: 10;
 }
 
+.searchANDcountriesTableWrapper {
+  @include flexModel(center, center, column);
+  // margin-top: 0;
+}
+
 .search {
   @include moduleWidth(40%);
+  margin-bottom: 3rem;
   min-width: 32rem;
   z-index: 10;
   @include flexModel(center, center);
@@ -325,7 +335,7 @@ table {
   th {
     &:hover {
       opacity: 0.8;
-      letter-spacing: .1rem;
+      letter-spacing: 0.1rem;
     }
   }
 }
@@ -333,8 +343,6 @@ table {
 .mainTable {
   width: 100%;
   overflow-y: scroll;
-  position: absolute;
-  top: 4rem;
 }
 
 .countries {
@@ -382,46 +390,54 @@ table {
     }
   }
   @include customScroll();
-    .flag {
-      .flagImg {
-        vertical-align: middle;
-        display: inline-block;
-        margin-right: 1rem;
-        width: 1.6rem;
-        height: 1.6rem;
-        background-size: contain;
-        background-repeat: no-repeat;
+  .flag {
+    .flagImg {
+      vertical-align: middle;
+      display: inline-block;
+      margin-right: 1rem;
+      width: 1.6rem;
+      height: 1.6rem;
+      background-size: contain;
+      background-repeat: no-repeat;
     }
   }
 }
 
-
-@media (max-height: 650px) {
+@media (max-height: 941px) {
   .contentWrapper {
-    &__contentLeft {
-      padding-top: 2rem;
+    // max-height: calc(100% - 10rem);
+    &__contentLeft, &__contentRight {
+      // height: 100%;
+      // overflow: hidden;
     }
   }
   .countries {
-    min-height: 35rem;
+    height: 40vh;
+    min-height: 60%;
+  }
+}
+
+@media (max-height: 768px) {
+  .countries {
+    min-height: 20rem;
   }
 }
 
 .summary {
   @include moduleWidth(100%);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 0;
   z-index: 12;
   position: relative;
-  height: 13.5rem;
+  height: 100%;
   table {
     td {
       width: 33%;
     }
   }
   &__tabs {
-    position: absolute;
+    // position: absolute;
     bottom: 0;
     margin-top: 1rem;
     width: 100%;
@@ -478,26 +494,47 @@ table {
 .map {
   width: 100%;
   min-width: 32rem;
-  height: 50vh;
-  min-height: 52rem;
+  height: 48vh;
+  // min-height: 52rem;
   background-color: #fff;
+}
+
+#map {
+  // position: absolute;
+  // top: 0;
+  // bottom: 0;
+  // width: 100%;
+  // height: 100%;
+}
+.mapboxgl-canvas {
+  outline: none !important;
+  &:focus {
+    // outline: none!important;
+  }
+}
+
+.mapboxgl-map {
+  outline: none !important;
+  border: none !important;
 }
 
 .graph {
   width: 100%;
   min-width: 32rem;
-  height: 30vh;
-  min-height: 32rem;
+  height: 100%;
   background-color: #fff;
   position: relative;
   overflow: hidden;
   &__canvas {
     position: absolute;
     bottom: 0;
-    display: none;
-    width: 100%;
-    height: 4rem;
   }
 }
 
-
+@media (max-width: 1000px) {
+  .graph {
+    &__canvas {
+      position: static;
+    }
+  }
+}
