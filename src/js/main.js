@@ -21,6 +21,7 @@ async function modulesController() {
   Global.updateGlobal(DataFetcher.data);
   Summary.updateSummary(DataFetcher.data);
   Map.updateMap(DataFetcher.data);
+  // console.log(DataFetcher.data);
   Graph.showChart('ukraine'); // DataFetcher.data[0] === World || DataFetcher.data === all countries include world
   // console.log(DataFetcher.data[0]); // test data format
 }
@@ -84,8 +85,14 @@ countriesTable.addEventListener('click', (event) => {
       // update CurrentCountry class statis values
       CurrentCountry.selectedCountryName = selectedCountry.getAttribute('name');
       CurrentCountry.selectedCountryID = selectedCountry.getAttribute('id');
+      // console.log(CurrentCountry.long);
       Summary.updateSummary(DataFetcher.data);
       Global.updateGlobal(DataFetcher.data);
+      CurrentCountry.updateCurrentCountryLongLat();
+      Map.selectCountryOnMap(
+        CurrentCountry.long,
+        CurrentCountry.lat,
+      );
     }
   }
 });

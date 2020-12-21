@@ -5,46 +5,53 @@ const map = new mapboxgl.Map({
   // renderWorldCopies: false,
   container: 'MAP',
   style: 'mapbox://styles/yemdigital/ckix544js5g6i19qkmoh51nbz',
-  continuousWorld: false,
-  noWrap: true,
   zoom: 1,
-  center: [40, 40],
+  center: [0, 0],
 });
+// disable map rotation using right click + drag
+map.dragRotate.disable();
+// disable map rotation using touch rotation gesture
+map.touchZoomRotate.disableRotation();
 
 export default class Map {
-  static updateMap(countriesData) {
-    // disable map rotation using right click + drag
-    map.dragRotate.disable();
-    // disable map rotation using touch rotation gesture
-    map.touchZoomRotate.disableRotation();
+  static selectCountryOnMap(long, lat) {
+    const WORDMARKERLONG = -15;
+    const WORDMARKERLAT = -20;
+    // if selected country is World
+    if (long === WORDMARKERLONG && lat === WORDMARKERLAT) {
+      map.flyTo({ center: [0, 0], zoom: 1 });
+    } else {
+      map.flyTo({ center: [long, lat], zoom: 4 });
+    }
+  }
 
+  static updateMap(countriesData) {
     // set coutries markers on map
     Map.setMarkers(countriesData, map);
   }
 
-  static setMaekerSize(number) {
-    // console.log(country);
+  static setMarkerSize(number) {
     let size = 0;
     if (number < 1000) {
-      size = 0.4;
+      size = 0.5;
     } else if (number < 3000) {
       size = 0.6;
     } else if (number < 20000) {
-      size = 0.8;
+      size = 0.7;
     } else if (number < 50000) {
-      size = 1.1;
+      size = 0.8;
     } else if (number < 100000) {
-      size = 1.4;
+      size = 0.9;
     } else if (number < 250000) {
-      size = 1.9;
+      size = 1;
     } else if (number < 500000) {
-      size = 2.3;
+      size = 1.2;
     } else if (number < 1000000) {
-      size = 2.8;
+      size = 1.3;
     } else if (number < 5000000) {
-      size = 3;
+      size = 1.5;
     } else if (number >= 5000000) {
-      size = 5;
+      size = 1.8;
     }
     return size;
   }
@@ -57,17 +64,17 @@ export default class Map {
       const marker = document.createElement('div');
       marker.className = 'marker';
 
-      const popup = document.createElement('div');
-      popup.className = 'mapPopup';
-
-      const markerSize = Map.setMaekerSize(country.cases);
+      const markerSize = Map.setMarkerSize(country.cases);
       marker.style.width = `${markerSize}rem`;
       marker.style.height = `${markerSize}rem`;
       new mapboxgl.Marker(marker)
         .setLngLat([long, lat])
-        .setPopup(new mapboxgl.Popup(popup)
+        .setPopup(new mapboxgl.Popup({
+          closeButton: false,
+        })
           .setHTML(`${country.country}: ${Number(country.cases).toLocaleString()}`)) // add popup
         .addTo(map);
+      // console.log(mapboxgl);
     });
   }
 }
