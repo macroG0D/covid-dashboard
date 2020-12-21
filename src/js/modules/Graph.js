@@ -20,6 +20,16 @@ export default class Graph {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        tooltips: {
+          backgroundColor: ' rgba(49, 49, 49, 0.8)',
+          titleFontSize: 14,
+          titleFontColor: '#fff',
+          bodyFontColor: '#fff',
+          bodyFontSize: 12,
+          displayColors: false,
+          borderColor: 'red',
+          borderWidth: 1,
+        },
       },
       data: {
         labels: labelsData,
@@ -29,8 +39,8 @@ export default class Graph {
             fill: false,
 
             data: casesData,
-            backgroundColor: 'rgba(0, 0, 255)',
-            borderColor: 'rgb(0,0,255)',
+            backgroundColor: 'rgb(72, 77, 84)',
+            borderColor: '#fff',
             borderWidth: 1,
           },
           {
