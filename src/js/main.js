@@ -7,6 +7,9 @@ import Summary from './modules/Summary';
 import Search from './modules/Search';
 import Map from './modules/Map';
 import Graph from './modules/Graph';
+import Keyboard from './modules/Keyboard';
+
+const keyboard = new Keyboard();
 
 // DATA FROM API
 async function fetchData() {
@@ -22,6 +25,7 @@ async function modulesController() {
   Summary.updateSummary(DataFetcher.data);
   Map.updateMap(DataFetcher.data);
   Graph.showChart();
+  keyboard.init();
 }
 
 modulesController();
@@ -29,6 +33,7 @@ modulesController();
 // LIVE SEARCH
 const searchInput = document.querySelector('.searchBar');
 const searchBar = new Search();
+
 searchInput.addEventListener('input', searchBar.livesearch);
 
 // SUMMARY buttons

@@ -558,3 +558,81 @@ table {
     }
   }
 }
+
+
+
+// Keybaord
+
+.keyboard{
+  position: fixed;
+  z-index: 13;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  padding: 5px 0;
+  background: black;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  user-select: none;
+  transition: bottom 0.4s;
+}
+
+.keyboardHidden{
+  bottom: -100%;
+}
+.keyboardKeys{
+  text-align: center;
+}
+.keyboardKey{
+  height: 45px;
+  width: 6%;
+  border: 1px solid red;
+  border-radius: 5px;
+  background-color: rgb(60, 48, 48);
+  color: white;
+  max-width: 90px;
+  margin:3px;
+  font-size:1.05rem;
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: top;
+  padding: 0px;
+  position: relative;
+}
+.keyboardKey:active{
+  background-color: rgba(49, 49, 49, 0.8);
+}
+
+.keyboardKeyWide{
+  width: 12%;
+}
+.keyboardKeyExtraWide{
+  width: 36%;
+  max-width: 500px;
+}
+.keyboardKeyActivatable::after{
+  content: "";
+  top: 10px;
+  right: 10px;
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  border: 1px solid red;
+}
+.keyboardKeyActive::after{
+  content: "";
+  top: 10px;
+  right: 10px;
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: red;
+  border-radius: 50%;
+}
+.keyboardKeyDark{
+  background-color: rgb(0, 0, 0);
+}
