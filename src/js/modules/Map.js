@@ -1,3 +1,9 @@
+import DataFetcher from './DataFetcher';
+import CurrentCountry from './CurrentCountry';
+import Summary from './Summary';
+import Global from './Global';
+import Graph from './Graph';
+
 const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 
 mapboxgl.accessToken = 'pk.eyJ1IjoieWVtZGlnaXRhbCIsImEiOiJjanl0eHMxNm0wMGVpM2JtbDVydnJqcGE4In0.R8jEQo8vpMY91It7RDTuwA';
@@ -74,6 +80,7 @@ export default class Map {
         type: 'Feature',
         properties: {
           description: `${country.country}: ${Number(country.cases).toLocaleString()}`,
+          country: `${country.country}`,
         },
         geometry: {
           type: 'Point',
@@ -133,6 +140,30 @@ export default class Map {
     // zoom in onclick
     map.on('click', 'places', (e) => {
       Map.selectCountryOnMap(e.lngLat.lng, e.lngLat.lat);
+      const { country } = e.features[0].properties;
+      CurrentCountry.selectedCountryName = country;
+
+      const countriesRows = document.querySelectorAll('.countryRow');
+      countriesRows.forEach((countryRow) => {
+        if (countryRow.getAttribute('name') === CurrentCountry.selectedCountryName.toLowerCase()) {
+          const previouslySelected = document.getElementById(`${CurrentCountry.selectedCountryID}`);
+          previouslySelected.classList.remove('selected');
+          CurrentCountry.selectedCountryID = countryRow.getAttribute('id');
+          if (!countryRow.classList.contains('selected')) {
+            countryRow.classList.add('selected');
+          }
+
+          // eslint-disable-next-line no-unused-vars
+          const promise = new Promise(() => {
+            setTimeout(() => {
+              countryRow.scrollIntoView({ block: 'center', behavior: 'smooth' });
+            }, 300);
+          }).then(Graph.showChart(),
+            Summary.updateSummary(DataFetcher.data),
+            Global.updateGlobal(DataFetcher.data),
+            CurrentCountry.updateCurrentCountryLongLat());
+        }
+      });
     });
   }
 }
