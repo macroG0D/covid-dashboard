@@ -83,14 +83,10 @@ countriesTable.addEventListener('click', (event) => {
       // update CurrentCountry class statis values
       CurrentCountry.selectedCountryName = selectedCountry.getAttribute('name');
       CurrentCountry.selectedCountryID = selectedCountry.getAttribute('id');
-      // console.log(CurrentCountry.long);
       Summary.updateSummary(DataFetcher.data);
       Global.updateGlobal(DataFetcher.data);
       CurrentCountry.updateCurrentCountryLongLat();
-      Map.selectCountryOnMap(
-        CurrentCountry.long,
-        CurrentCountry.lat,
-      );
+      Map.selectCountryOnMap(CurrentCountry.long, CurrentCountry.lat);
       Graph.showChart();
     }
   }

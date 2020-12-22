@@ -1,3 +1,4 @@
+import getTodayConvertedDate from './DateConverter';
 /* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 export default class DataFetcher {
@@ -40,6 +41,27 @@ export default class DataFetcher {
     return worldTImeline;
   }
 
+  // timeline API and countries API returning different data
+  // this function is changing the current day in charts according to
+  // counties totals
+  static setCurrentDayCovidHistory(allCountries) {
+    const today = getTodayConvertedDate();
+    let yesterday = today.split('/');
+    yesterday[1] = String(Number(yesterday[1]) - 1);
+    yesterday = yesterday.join('/');
+    console.log(yesterday);
+    // eslint-disable-next-line consistent-return
+    allCountries.forEach((country) => {
+      try {
+        country.timeline.cases[today] = country.cases;
+        country.timeline.deaths[today] = country.deaths;
+        country.timeline.recovered[today] = country.recovered;
+      } catch (e) {
+        return false;
+      }
+    });
+  }
+
   async getCovidData() {
     const countriesResponse = await fetch('https://disease.sh/v3/covid-19/countries');
     const allCountries = await countriesResponse.json();
@@ -51,11 +73,10 @@ export default class DataFetcher {
       const matchedCountry = countriesTimeLineStats.find((countriesWithTimeLine) => countriesWithTimeLine.country === country.country);
       if (matchedCountry) {
         country.timeline = matchedCountry.timeline;
-      } else {
-        country.timeline = 'no data for this country';
+      } else { // if no historical data for country — generate it from known information
+        country.timeline = [country.cases, country.recovered, country.deaths, Date.now()];
       }
     });
-
     // GET GLOBAL DATA
     const worldDataResponse = await fetch('https://disease.sh/v3/covid-19/all');
     const worldTimeLineDataResponse = await fetch('https://covid19-api.org/api/timeline');
@@ -75,6 +96,8 @@ export default class DataFetcher {
     allCountries.push(WORLD);
     this.updateData(allCountries);
 
+    // DataFetcher.setCurrentDayCovidHistory(allCountries); // optional function
+
     // sort by default by cases amount
     allCountries.sort((a, b) => b.cases - a.cases);
     DataFetcher.insert100k();
@@ -89,7 +112,6 @@ export default class DataFetcher {
     const countryPopulation = population;
     const HUNDREDK = 100000;
     const hundredK = countryPopulation / HUNDREDK;
-    // return Math.floor(number / hundredK);
     return (number / hundredK).toFixed(2);
   }
 
