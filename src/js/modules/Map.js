@@ -39,25 +39,25 @@ export default class Map {
   static setMarkerSize(number) {
     let size = 0;
     if (number < 1000) {
-      size = 0.5;
+      size = 0.3;
     } else if (number < 3000) {
-      size = 0.6;
+      size = 0.5;
     } else if (number < 20000) {
       size = 0.7;
     } else if (number < 50000) {
-      size = 0.8;
-    } else if (number < 100000) {
       size = 0.9;
+    } else if (number < 100000) {
+      size = 1.1;
     } else if (number < 250000) {
-      size = 1;
-    } else if (number < 500000) {
-      size = 1.2;
-    } else if (number < 1000000) {
       size = 1.3;
-    } else if (number < 5000000) {
+    } else if (number < 500000) {
       size = 1.5;
+    } else if (number < 1000000) {
+      size = 1.7;
+    } else if (number < 5000000) {
+      size = 2;
     } else if (number >= 5000000) {
-      size = 1.8;
+      size = 2.3;
     }
     return size;
   }
@@ -143,6 +143,7 @@ export default class Map {
       const { country } = e.features[0].properties;
       CurrentCountry.selectedCountryName = country;
 
+      // select country on countries table
       const countriesRows = document.querySelectorAll('.countryRow');
       countriesRows.forEach((countryRow) => {
         if (countryRow.getAttribute('name') === CurrentCountry.selectedCountryName.toLowerCase()) {
@@ -153,10 +154,13 @@ export default class Map {
             countryRow.classList.add('selected');
           }
 
+          // scroll countires table to selected country
           // eslint-disable-next-line no-unused-vars
           const promise = new Promise(() => {
             setTimeout(() => {
               countryRow.scrollIntoView({ block: 'center', behavior: 'smooth' });
+              // need timeout becouse showChart is changing focus on itself
+              // and preventing scrollIntoView function
             }, 300);
           }).then(Graph.showChart(),
             Summary.updateSummary(DataFetcher.data),

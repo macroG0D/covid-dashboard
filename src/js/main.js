@@ -92,5 +92,16 @@ countriesTable.addEventListener('click', (event) => {
   }
 });
 
+// MAP LEGEND
+const mapLegend = document.querySelectorAll('.legendItem');
+mapLegend.forEach((marker) => {
+  let size = marker.getAttribute('size');
+  size = (Map.setMarkerSize(size) * 10) - 1.8;
+  // eslint-disable-next-line no-param-reassign
+  marker.children[0].style.width = `${size}px`;
+  // eslint-disable-next-line no-param-reassign
+  marker.children[0].style.height = `${size}px`;
+});
+
 // FULL SCREEN
 // const moduleWrappers = document.querySelectorAll('.moduleWrapper');
