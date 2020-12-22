@@ -2,11 +2,11 @@ const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 
 mapboxgl.accessToken = 'pk.eyJ1IjoieWVtZGlnaXRhbCIsImEiOiJjanl0eHMxNm0wMGVpM2JtbDVydnJqcGE4In0.R8jEQo8vpMY91It7RDTuwA';
 const map = new mapboxgl.Map({
-  // renderWorldCopies: false,
   container: 'MAP',
   style: 'mapbox://styles/yemdigital/ckix544js5g6i19qkmoh51nbz',
   zoom: 1,
   center: [0, 0],
+  attributionControl: false,
 });
 // disable map rotation using right click + drag
 map.dragRotate.disable();
@@ -57,24 +57,82 @@ export default class Map {
   }
 
   static setMarkers(countriesData) {
+    const mapPopupsData = [];
     countriesData.forEach((country) => {
       const { long } = country.countryInfo;
       const { lat } = country.countryInfo;
-
       const marker = document.createElement('div');
       marker.className = 'marker';
-
       const markerSize = Map.setMarkerSize(country.cases);
       marker.style.width = `${markerSize}rem`;
       marker.style.height = `${markerSize}rem`;
       new mapboxgl.Marker(marker)
         .setLngLat([long, lat])
-        .setPopup(new mapboxgl.Popup({
-          closeButton: false,
-        })
-          .setHTML(`${country.country}: ${Number(country.cases).toLocaleString()}`)) // add popup
         .addTo(map);
-      // console.log(mapboxgl);
+
+      mapPopupsData.push({
+        type: 'Feature',
+        properties: {
+          description: `${country.country}: ${Number(country.cases).toLocaleString()}`,
+        },
+        geometry: {
+          type: 'Point',
+          coordinates: [long, lat],
+        },
+      });
+    });
+
+    map.addSource('places', {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: mapPopupsData,
+      },
+    });
+
+    // Add a layer showing the places.
+    map.addLayer({
+      id: 'places',
+      type: 'circle',
+      source: 'places',
+      paint: {
+        'circle-radius': 20,
+        'circle-opacity': 0,
+      },
+    });
+
+    // Create a popup, but don't add it to the map yet.
+    const popup = new mapboxgl.Popup({
+      closeButton: false,
+    });
+
+    map.on('mouseenter', 'places', (e) => {
+      // Change the cursor style as a UI indicator.
+      map.getCanvas().style.cursor = 'pointer';
+
+      const coordinates = e.features[0].geometry.coordinates.slice();
+      const { description } = e.features[0].properties;
+
+      // Ensure that if the map is zoomed out such that multiple
+      // copies of the feature are visible, the popup appears
+      // over the copy being pointed to.
+      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+      }
+
+      // Populate the popup and set its coordinates
+      // based on the feature found.
+      popup.setLngLat(coordinates).setHTML(description).addTo(map);
+    });
+
+    map.on('mouseleave', 'places', () => {
+      map.getCanvas().style.cursor = '';
+      popup.remove();
+    });
+
+    // zoom in onclick
+    map.on('click', 'places', (e) => {
+      Map.selectCountryOnMap(e.lngLat.lng, e.lngLat.lat);
     });
   }
 }
