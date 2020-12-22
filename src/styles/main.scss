@@ -14,7 +14,6 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  @include trans();
   @include customScroll($milk-color, $text-light-color);
 }
 
@@ -208,6 +207,12 @@ main {
 .graph {
   box-shadow: $pressedHard;
   background: $bg-color;
+}
+
+table {
+  th, tr {
+    @include trans();
+  }
 }
 
 .global {
@@ -483,6 +488,7 @@ table {
 
 // MAP STYLE
 .map {
+  display: block;
   width: 100%;
   min-width: 32rem;
   height: 48vh;
@@ -490,12 +496,7 @@ table {
 }
 
 .mapboxgl-canvas {
-  outline: none !important;
-}
-
-.mapboxgl-map {
-  outline: none !important;
-  border: none !important;
+  outline: none;
 }
 
 .mapboxgl-control-container {
@@ -508,7 +509,6 @@ table {
   border: 0.1rem solid rgba(0, 0, 0, 0.363);
   cursor: pointer;
 }
-
 
 .mapboxgl-popup-content {
   @include fontstyle();
@@ -536,7 +536,6 @@ table {
 .mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
   border-right-color: rgba(49, 49, 49, 0.8);
 }
-
 
 // GRAPH STYLE
 .graph {
