@@ -6,6 +6,14 @@ const Chart = require('chart.js');
 export default class Graph {
   static chart = Chart;
 
+  static myChart = null;
+
+  static destroyChart(myChart) {
+    if (myChart) {
+      myChart.destroy();
+    }
+  }
+
   static showChart() {
     const ctx = document.getElementById('myChart').getContext('2d');
 
@@ -15,19 +23,22 @@ export default class Graph {
     const deathCasesData = Object.values(currentCountryTimeline.deaths);
     const recoveredCasesData = Object.values(currentCountryTimeline.recovered);
 
-    const myChart = new Chart(ctx, {
+    // if chart is already exists — destroy it
+    Graph.destroyChart(Graph.myChart);
+
+    Graph.myChart = new Chart(ctx, {
       type: 'line',
       options: {
         responsive: true,
         maintainAspectRatio: false,
         tooltips: {
-          backgroundColor: ' rgba(49, 49, 49, 0.8)',
+          backgroundColor: 'rgba(49, 49, 49, 0.8)',
           titleFontSize: 14,
           titleFontColor: '#fff',
           bodyFontColor: '#fff',
-          bodyFontSize: 12,
+          bodyFontSize: 14,
           displayColors: false,
-          borderColor: 'red',
+          borderColor: 'rgba(255, 65, 65, 1)',
           borderWidth: 1,
         },
       },
@@ -39,27 +50,27 @@ export default class Graph {
             fill: false,
 
             data: casesData,
-            backgroundColor: 'rgb(72, 77, 84)',
-            borderColor: '#fff',
-            borderWidth: 1,
+            backgroundColor: 'rgba(214, 219, 227, 1)',
+            borderColor: 'rgba(214, 219, 227, 1)',
+            borderWidth: 2,
           },
           {
             label: 'recovered',
             fill: false,
 
             data: recoveredCasesData,
-            backgroundColor: 'rgba(0, 255, 0)',
-            borderColor: 'green',
-            borderWidth: 1,
+            backgroundColor: 'rgba(100, 206, 129, 1)',
+            borderColor: 'rgba(100, 206, 129, 1)',
+            borderWidth: 2,
           },
           {
             label: 'death',
             fill: false,
 
             data: deathCasesData,
-            backgroundColor: 'rgba(255, 0, 0)',
-            borderColor: 'red',
-            borderWidth: 1,
+            backgroundColor: 'rgba(255, 65, 65, 1)',
+            borderColor: 'rgba(255, 65, 65, 1)',
+            borderWidth: 2,
           },
         ],
       },
