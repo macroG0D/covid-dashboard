@@ -78,10 +78,10 @@ export default class Map {
         markerColor = '#ff4141';
         break;
       case 'todayCases':
-        markerColor = '#e71e1e';
+        markerColor = '#ff4141';
         break;
       case 'casesPer100k':
-        markerColor = '#ff4141';
+        markerColor = '#e71e1e';
         break;
       case 'todayCasesPer100k':
         markerColor = '#e71e1e';
@@ -90,10 +90,10 @@ export default class Map {
         markerColor = '#64CE81';
         break;
       case 'todayRecovered':
-        markerColor = '#2FFF69';
+        markerColor = '#64CE81';
         break;
       case 'recoveredPer100k':
-        markerColor = '#64CE81';
+        markerColor = '#2FFF69';
         break;
       case 'todayRecoveredPer100k':
         markerColor = '#2FFF69';
@@ -102,10 +102,10 @@ export default class Map {
         markerColor = '#8D479E';
         break;
       case 'todayDeaths':
-        markerColor = '#CC00FF';
+        markerColor = '#8D479E';
         break;
       case 'deathsPer100k':
-        markerColor = '#8D479E';
+        markerColor = '#CC00FF';
         break;
       case 'todayDeathsPer100k':
         markerColor = '#CC00FF';
@@ -236,7 +236,7 @@ export default class Map {
               // need timeout becouse showChart is changing focus on itself
               // and preventing scrollIntoView function
             }, 300);
-          }).then(Graph.showChart(),
+          }).then(Graph.total ? Graph.showChart() : Graph.showPolarChart(),
             Summary.updateSummary(DataFetcher.data),
             Global.updateGlobal(DataFetcher.data),
             CurrentCountry.updateCurrentCountryLongLat());

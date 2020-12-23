@@ -174,6 +174,12 @@ main {
   height: 100vh;
   @include fontstyle(1.6rem, $medium);
 }
+@media (max-width: 980px) {
+  main {
+    height: auto;
+    padding-bottom: 5rem;
+  }
+}
 
 .hiddenItem {
   display: none;
@@ -429,7 +435,7 @@ table {
     position: absolute;
     justify-content: space-between;
     width: calc(100% - 10px);
-    bottom: -.2rem;
+    bottom: -0.2rem;
     left: 0;
     background: $bg-color;
     backdrop-filter: blur(4px);
@@ -442,6 +448,9 @@ table {
         &:first-child {
           border-radius: 0 0 0 1rem;
         }
+        &:last-child {
+          border-radius: 0 0 1rem 0;
+        }
       }
     }
     .right {
@@ -449,13 +458,80 @@ table {
       justify-content: flex-end;
       width: 20%;
       .tabButton {
-        // border-radius: 0 0 1rem 0;
+        border-radius: 0 0 0 1rem;
       }
     }
     .tabButton {
       font-size: 1.2rem;
       font-weight: 300;
       text-align: center;
+    }
+  }
+}
+
+@media (max-width: 1920px) {
+  .countries {
+    &__table-wrapper {
+      padding-bottom: 7.7rem;
+    }
+    &__tabs {
+      display: flex;
+      flex-direction: column;
+      .left,
+      .right {
+        width: 100%;
+      }
+      .left {
+        .tabButton {
+          &:first-child {
+            border-radius: 0;
+          }
+          &:last-child {
+            border-radius: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1511px) {
+  .countries {
+    &__table-wrapper {
+      padding-bottom: 9.3rem;
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .countries {
+    &__table-wrapper {
+      padding-bottom: 12rem;
+    }
+    &__tabs {
+      .left {
+        max-width: 100%;
+        flex-direction: row;
+        .tabButton {
+          width: 32%;
+        }
+        flex-wrap: wrap;
+      }
+    }
+  }
+}
+
+@media (max-width: 385px) {
+  .countries {
+    &__table-wrapper {
+      padding-bottom: 13.2rem;
+    }
+  }
+}
+@media (max-width: 370px) {
+  .countries {
+    &__table-wrapper {
+      padding-bottom: 14rem;
     }
   }
 }
@@ -470,6 +546,23 @@ table {
 @media (max-height: 768px) {
   .countries {
     min-height: 20rem;
+  }
+}
+// @media screen and (min-height: 750px) and (min-width: 1188px) {
+//   body {
+//     padding-bottom: 5rem;
+//   }
+// }
+
+@media (max-height: 620px) {
+  body {
+    padding-bottom: 12rem;
+  }
+}
+
+@media (max-height: 550px) {
+  body {
+    padding-bottom: 30rem;
   }
 }
 
@@ -642,7 +735,6 @@ table {
 .countryNameOnChartsWrapper {
   position: absolute;
   width: 80%;
-  margin-left: 3rem;
 }
 .countryNameOnCharts {
   font-size: 3.5em;
@@ -677,7 +769,6 @@ table {
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
   user-select: none;
   @include trans(0.5s, ease-in-out);
-  // transition: all .25s ease-in-out
 }
 
 .keyboardHidden {
@@ -686,18 +777,20 @@ table {
 
 .keyboardKeys {
   text-align: center;
+  padding: 2rem 1rem;
+  box-shadow: $concave;
 }
 
 .keyboardKey {
   height: 45px;
   width: 6%;
-  border: 1px solid red;
+  border: 0.2rem solid $table-div-color;
   border-radius: 5px;
-  background-color: rgb(60, 48, 48);
-  color: white;
+  background-color: $bg-color;
+  color: $accent-color;
   max-width: 90px;
   margin: 3px;
-  font-size: 1.05rem;
+  font-size: 1.4rem;
   outline: none;
   cursor: pointer;
   display: inline-flex;
@@ -706,6 +799,11 @@ table {
   vertical-align: top;
   padding: 0px;
   position: relative;
+  @include trans(0.25s);
+}
+
+.keyboardKey:hover {
+  box-shadow: $pressedHard;
 }
 
 .keyboardKey:active {
@@ -721,48 +819,27 @@ table {
   max-width: 500px;
 }
 
-.keyboardKeyActivatable::after {
-  content: '';
-  top: 10px;
-  right: 10px;
+.switchChartBtn {
   position: absolute;
-  width: 8px;
-  height: 8px;
-  background: rgba(0, 0, 0, 0.4);
-  border-radius: 50%;
-  border: 1px solid red;
-}
-
-.keyboardKeyActive::after {
-  content: '';
-  top: 10px;
-  right: 10px;
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: red;
-  border-radius: 50%;
-}
-
-.keyboardKeyDark {
-  background-color: rgb(0, 0, 0);
-}
-
-.switchChartBtn{
-  position: absolute;
-  top: 10px;
-  left: 0px;
+  top: 0;
   color: white;
-  background-color: gray;
-  border: none;
-  width: 15%;
-  height: 6%;
+  margin: auto;
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  border-radius: 0 0 1rem 1rem;
   cursor: pointer;
+  border: 0.1rem solid #1b1c1f;
+  background: #5f6774;
+  z-index: 999;
+  @include trans();
+  &:hover {
+    background: #313640;
+    color: rgba(255, 255, 255, 0.6);
+  }
 }
-.switchChartBtn:hover{
-  cursor: pointer;
-  background-color: dimgray;
-}
+
 .switchChartBtn.active {
-  background-color: red;
+  background: #313640 !important;
+  color: rgba(255, 255, 255, 0.6);
+  box-shadow: $pressed;
 }

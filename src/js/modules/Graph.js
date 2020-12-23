@@ -9,6 +9,8 @@ export default class Graph {
 
   static myChart = null;
 
+  static total = true;
+
   static destroyChart(myChart) {
     if (myChart) {
       myChart.destroy();
@@ -31,11 +33,17 @@ export default class Graph {
           DataFetcher.data[CurrentCountry.selectedCountryID].todayCases,
           DataFetcher.data[CurrentCountry.selectedCountryID].todayRecovered,
           DataFetcher.data[CurrentCountry.selectedCountryID].todayDeaths,
+          DataFetcher.data[CurrentCountry.selectedCountryID].todayCasesPer100k,
+          DataFetcher.data[CurrentCountry.selectedCountryID].todayRecoveredPer100k,
+          DataFetcher.data[CurrentCountry.selectedCountryID].todayDeathsPer100k,
         ],
         backgroundColor: [
-          'rgba(255,255,255,0.7)',
-          'rgba(100, 206, 129, 0.7)',
-          'rgba(255,0,0,0.7)',
+          'rgba(255, 65, 65, 0.5)',
+          'rgba(100, 206, 129, 0.5)',
+          'rgba(141, 71, 158, 0.5)',
+          'rgba(231, 30, 30, 0.5)',
+          'rgba(47, 255, 105, 0.5)',
+          'rgba(204, 0, 255, 0.5)',
         ],
         legend: 'Today polar chart', // for legend
       }],
@@ -43,6 +51,9 @@ export default class Graph {
         'Today Cases',
         'Today Recovered',
         'Today Deaths',
+        'Today Cases per 100k',
+        'Today Recovered per 100k',
+        'Today Deaths per 100k',
       ],
     };
     const ctx = document.getElementById('myChart').getContext('2d');
@@ -52,6 +63,12 @@ export default class Graph {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        layout: {
+          padding: {
+            top: 15,
+            bottom: 15,
+          },
+        },
       },
     });
   }
@@ -93,7 +110,7 @@ export default class Graph {
     // if chart is already exists — destroy it
     Graph.destroyChart(Graph.myChart);
 
-    // format the left-side data numbers
+    // format the left-side data numbers`
     Chart.scaleService.updateScaleDefaults('linear', {
       ticks: {
         callback(tick) {
@@ -119,6 +136,14 @@ export default class Graph {
     Graph.myChart = new Chart(ctx, {
       type: 'line',
       options: {
+        layout: {
+          padding: {
+            left: 0,
+            right: 0,
+            top: 15,
+            bottom: 0,
+          },
+        },
         responsive: true,
         maintainAspectRatio: false,
         tooltips: {
@@ -141,8 +166,8 @@ export default class Graph {
             fill: false,
 
             data: casesData,
-            backgroundColor: 'rgba(214, 219, 227, 1)',
-            borderColor: 'rgba(214, 219, 227, 1)',
+            backgroundColor: '#ff4141',
+            borderColor: '#ff4141',
             borderWidth: 2,
           },
           {
@@ -150,8 +175,8 @@ export default class Graph {
             fill: false,
 
             data: recoveredCasesData,
-            backgroundColor: 'rgba(100, 206, 129, 1)',
-            borderColor: 'rgba(100, 206, 129, 1)',
+            backgroundColor: '#64CE81',
+            borderColor: '#64CE81',
             borderWidth: 2,
           },
           {
@@ -159,8 +184,8 @@ export default class Graph {
             fill: false,
 
             data: deathCasesData,
-            backgroundColor: 'rgba(255, 65, 65, 1)',
-            borderColor: 'rgba(255, 65, 65, 1)',
+            backgroundColor: '#8D479E',
+            borderColor: '#8D479E',
             borderWidth: 2,
           },
           {
@@ -169,7 +194,7 @@ export default class Graph {
 
             data: cases100k,
             backgroundColor: '',
-            borderColor: 'rgba(127, 80, 165, 1)',
+            borderColor: '#e71e1e',
             borderWidth: 2,
           },
           {
@@ -178,7 +203,7 @@ export default class Graph {
 
             data: recovered100k,
             backgroundColor: '',
-            borderColor: 'rgba(232, 212, 111, 1)',
+            borderColor: '#2FFF69',
             borderWidth: 2,
           },
           {
@@ -187,7 +212,7 @@ export default class Graph {
 
             data: deaths100k,
             backgroundColor: '',
-            borderColor: 'rgba(165, 80, 80, 1)',
+            borderColor: '#CC00FF',
             borderWidth: 2,
           },
         ],
