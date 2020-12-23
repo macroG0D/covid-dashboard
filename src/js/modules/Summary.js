@@ -42,10 +42,13 @@ export default class Summary {
     const summaryCases = document.querySelector('#summary_cases');
     const summaryRecovered = document.querySelector('#summary_recovered');
     const summaryDeaths = document.querySelector('#summary_deaths');
-    const { selectedCountryID } = CurrentCountry;
-    const casesNum = data[selectedCountryID][Summary.confirmed];
-    const recoveredNum = data[selectedCountryID][Summary.recovered];
-    const deathsNum = data[selectedCountryID][Summary.deaths];
+    const selectedCountry = data.findIndex(
+      (country) => country.country.toLowerCase()
+      === CurrentCountry.selectedCountryName.toLowerCase(),
+    );
+    const casesNum = data[selectedCountry][Summary.confirmed];
+    const recoveredNum = data[selectedCountry][Summary.recovered];
+    const deathsNum = data[selectedCountry][Summary.deaths];
     summaryCases.textContent = casesNum > 0 ? casesNum.toLocaleString() : 'N/A';
     summaryRecovered.textContent = recoveredNum > 0 ? recoveredNum.toLocaleString() : 'N/A';
     summaryDeaths.textContent = deathsNum > 0 ? deathsNum.toLocaleString() : 'N/A';

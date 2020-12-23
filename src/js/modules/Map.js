@@ -143,7 +143,8 @@ export default class Map {
       marker.style.background = Map.markerColor;
       marker.style.width = `${markerSize}rem`;
       marker.style.height = `${markerSize}rem`;
-      let descriptionText = `${CurrentCountry.dataType} in ${country.country}: ${Number(country[dataType]).toLocaleString()}`;
+      const countryData = Number(country[dataType]) <= 0 ? 'N/A' : Number(country[dataType]).toLocaleString();
+      let descriptionText = `${CurrentCountry.dataType} in ${country.country}: ${countryData}`;
       descriptionText += !CountriesTable.absolute ? ' per 100k' : '';
       const markerOnMap = new mapboxgl.Marker(marker);
       markerOnMap.setLngLat([long, lat]).addTo(map);
