@@ -49,7 +49,6 @@ export default class DataFetcher {
     let yesterday = today.split('/');
     yesterday[1] = String(Number(yesterday[1]) - 1);
     yesterday = yesterday.join('/');
-    console.log(yesterday);
     // eslint-disable-next-line consistent-return
     allCountries.forEach((country) => {
       try {
@@ -81,7 +80,7 @@ export default class DataFetcher {
     const worldDataResponse = await fetch('https://disease.sh/v3/covid-19/all');
     const worldTimeLineDataResponse = await fetch('https://covid19-api.org/api/timeline');
     const worldTimeLineData = await worldTimeLineDataResponse.json();
-    const formatedWorldTimeLineData = await DataFetcher.formatWorldTimeLine(worldTimeLineData);
+    const formatedWorldTimeLineData = DataFetcher.formatWorldTimeLine(worldTimeLineData);
 
     const WORLD = await worldDataResponse.json();
     DataFetcher.global = WORLD;

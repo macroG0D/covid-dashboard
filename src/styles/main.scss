@@ -210,7 +210,8 @@ main {
 }
 
 table {
-  th, tr {
+  th,
+  tr {
     @include trans();
   }
 }
@@ -518,7 +519,7 @@ table {
   height: auto;
   background: linear-gradient(360deg, #141516 30%, rgba(25, 27, 28, 0) 100%);
   font-size: 1.2em;
-  opacity: .9;
+  opacity: 0.9;
   pointer-events: none;
   .legendItem {
     @include flexModel(center, center);
@@ -609,17 +610,17 @@ table {
   margin: 0 auto;
   text-align: center;
   word-wrap: break-word;
-  opacity: .1;
+  opacity: 0.1;
 }
 
 @media (max-width: 620px) {
   .countryNameOnCharts {
     font-size: 5rem;
+  }
 }
 
 // Keybaord
-
-.keyboard{
+.keyboard {
   position: fixed;
   z-index: 1000;
   left: 0px;
@@ -632,13 +633,15 @@ table {
   transition: bottom 0.4s;
 }
 
-.keyboardHidden{
+.keyboardHidden {
   bottom: -100%;
 }
-.keyboardKeys{
+
+.keyboardKeys {
   text-align: center;
 }
-.keyboardKey{
+
+.keyboardKey {
   height: 45px;
   width: 6%;
   border: 1px solid red;
@@ -646,8 +649,8 @@ table {
   background-color: rgb(60, 48, 48);
   color: white;
   max-width: 90px;
-  margin:3px;
-  font-size:1.05rem;
+  margin: 3px;
+  font-size: 1.05rem;
   outline: none;
   cursor: pointer;
   display: inline-flex;
@@ -657,19 +660,22 @@ table {
   padding: 0px;
   position: relative;
 }
-.keyboardKey:active{
+
+.keyboardKey:active {
   background-color: rgba(49, 49, 49, 0.8);
 }
 
-.keyboardKeyWide{
+.keyboardKeyWide {
   width: 12%;
 }
-.keyboardKeyExtraWide{
+
+.keyboardKeyExtraWide {
   width: 36%;
   max-width: 500px;
 }
-.keyboardKeyActivatable::after{
-  content: "";
+
+.keyboardKeyActivatable::after {
+  content: '';
   top: 10px;
   right: 10px;
   position: absolute;
@@ -679,8 +685,9 @@ table {
   border-radius: 50%;
   border: 1px solid red;
 }
-.keyboardKeyActive::after{
-  content: "";
+
+.keyboardKeyActive::after {
+  content: '';
   top: 10px;
   right: 10px;
   position: absolute;
@@ -689,6 +696,7 @@ table {
   background: red;
   border-radius: 50%;
 }
-.keyboardKeyDark{
+
+.keyboardKeyDark {
   background-color: rgb(0, 0, 0);
 }
