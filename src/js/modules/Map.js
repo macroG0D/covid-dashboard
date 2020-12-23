@@ -1,3 +1,9 @@
+import DataFetcher from './DataFetcher';
+import CurrentCountry from './CurrentCountry';
+import Summary from './Summary';
+import Global from './Global';
+import Graph from './Graph';
+
 const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
 
 mapboxgl.accessToken = 'pk.eyJ1IjoieWVtZGlnaXRhbCIsImEiOiJjanl0eHMxNm0wMGVpM2JtbDVydnJqcGE4In0.R8jEQo8vpMY91It7RDTuwA';
@@ -33,25 +39,25 @@ export default class Map {
   static setMarkerSize(number) {
     let size = 0;
     if (number < 1000) {
-      size = 0.5;
+      size = 0.3;
     } else if (number < 3000) {
-      size = 0.6;
+      size = 0.5;
     } else if (number < 20000) {
       size = 0.7;
     } else if (number < 50000) {
-      size = 0.8;
-    } else if (number < 100000) {
       size = 0.9;
+    } else if (number < 100000) {
+      size = 1.1;
     } else if (number < 250000) {
-      size = 1;
-    } else if (number < 500000) {
-      size = 1.2;
-    } else if (number < 1000000) {
       size = 1.3;
-    } else if (number < 5000000) {
+    } else if (number < 500000) {
       size = 1.5;
+    } else if (number < 1000000) {
+      size = 1.7;
+    } else if (number < 5000000) {
+      size = 2;
     } else if (number >= 5000000) {
-      size = 1.8;
+      size = 2.3;
     }
     return size;
   }
@@ -74,6 +80,7 @@ export default class Map {
         type: 'Feature',
         properties: {
           description: `${country.country}: ${Number(country.cases).toLocaleString()}`,
+          country: `${country.country}`,
         },
         geometry: {
           type: 'Point',
@@ -133,6 +140,34 @@ export default class Map {
     // zoom in onclick
     map.on('click', 'places', (e) => {
       Map.selectCountryOnMap(e.lngLat.lng, e.lngLat.lat);
+      const { country } = e.features[0].properties;
+      CurrentCountry.selectedCountryName = country;
+
+      // select country on countries table
+      const countriesRows = document.querySelectorAll('.countryRow');
+      countriesRows.forEach((countryRow) => {
+        if (countryRow.getAttribute('name') === CurrentCountry.selectedCountryName.toLowerCase()) {
+          const previouslySelected = document.getElementById(`${CurrentCountry.selectedCountryID}`);
+          previouslySelected.classList.remove('selected');
+          CurrentCountry.selectedCountryID = countryRow.getAttribute('id');
+          if (!countryRow.classList.contains('selected')) {
+            countryRow.classList.add('selected');
+          }
+
+          // scroll countires table to selected country
+          // eslint-disable-next-line no-unused-vars
+          const promise = new Promise(() => {
+            setTimeout(() => {
+              countryRow.scrollIntoView({ block: 'center', behavior: 'smooth' });
+              // need timeout becouse showChart is changing focus on itself
+              // and preventing scrollIntoView function
+            }, 300);
+          }).then(Graph.showChart(),
+            Summary.updateSummary(DataFetcher.data),
+            Global.updateGlobal(DataFetcher.data),
+            CurrentCountry.updateCurrentCountryLongLat());
+        }
+      });
     });
   }
 }

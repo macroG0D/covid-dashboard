@@ -1,5 +1,6 @@
 import CurrentCountry from './CurrentCountry';
 import DataFetcher from './DataFetcher';
+import getTodayConvertedDate from './DateConverter';
 
 const Chart = require('chart.js');
 
@@ -14,24 +15,78 @@ export default class Graph {
     }
   }
 
+  static displayCountryOnCharts() {
+    const countryNameOnCharts = document.querySelector('.countryNameOnCharts');
+    countryNameOnCharts.textContent = `${CurrentCountry.selectedCountryName.toUpperCase()}`;
+  }
+
   static showChart() {
     const ctx = document.getElementById('myChart').getContext('2d');
-
+    Graph.displayCountryOnCharts();
     const currentCountryTimeline = DataFetcher.data[CurrentCountry.selectedCountryID].timeline;
-    const labelsData = Object.keys(currentCountryTimeline.cases);
-    const casesData = Object.values(currentCountryTimeline.cases);
-    const deathCasesData = Object.values(currentCountryTimeline.deaths);
-    const recoveredCasesData = Object.values(currentCountryTimeline.recovered);
+    const { population } = DataFetcher.data[CurrentCountry.selectedCountryID];
+
+    let labelsData;
+    let casesData;
+    let deathCasesData;
+    let recoveredCasesData;
+
+    try {
+      labelsData = Object.keys(currentCountryTimeline.cases);
+      casesData = Object.values(currentCountryTimeline.cases);
+      deathCasesData = Object.values(currentCountryTimeline.deaths);
+      recoveredCasesData = Object.values(currentCountryTimeline.recovered);
+    } catch (e) {
+      const lastUpdated = getTodayConvertedDate();
+      const firstKnownCovidCase = '11/11/19';
+      labelsData = [firstKnownCovidCase, lastUpdated];
+      casesData = [0, currentCountryTimeline[0]];
+      recoveredCasesData = [0, currentCountryTimeline[1]];
+      deathCasesData = [0, currentCountryTimeline[2]];
+    }
+
+    const cases100k = casesData.map((deseaseCase) => DataFetcher
+      .hundredKPopConverter(deseaseCase, population));
+
+    const deaths100k = deathCasesData.map((deathCase) => DataFetcher
+      .hundredKPopConverter(deathCase, population));
+
+    const recovered100k = recoveredCasesData.map((recoveredCase) => DataFetcher
+      .hundredKPopConverter(recoveredCase, population));
 
     // if chart is already exists — destroy it
     Graph.destroyChart(Graph.myChart);
 
+    // format the left-side data numbers
+    Chart.scaleService.updateScaleDefaults('linear', {
+      ticks: {
+        callback(tick) {
+          if (tick >= 1000000) {
+            return `${(tick / 1000000).toLocaleString()}M`;
+          }
+          if (tick >= 100000) {
+            return `${(tick / 1000).toLocaleString()}k`;
+          }
+          return `${tick.toLocaleString()}`;
+        },
+      },
+    });
+
+    // format the tooltip data
+    Chart.defaults.global.tooltips.callbacks.label = function (tooltipItem, data) {
+      const dataset = data.datasets[tooltipItem.datasetIndex];
+      const datasetLabel = dataset.label || '';
+      return `${datasetLabel}: ${dataset.data[tooltipItem.index].toLocaleString()}`;
+    };
+
+    // create new instance
     Graph.myChart = new Chart(ctx, {
       type: 'line',
       options: {
         responsive: true,
         maintainAspectRatio: false,
         tooltips: {
+          mode: 'x',
           backgroundColor: 'rgba(49, 49, 49, 0.8)',
           titleFontSize: 14,
           titleFontColor: '#fff',
@@ -46,7 +101,7 @@ export default class Graph {
         labels: labelsData,
         datasets: [
           {
-            label: 'cases',
+            label: 'Total Cases',
             fill: false,
 
             data: casesData,
@@ -55,7 +110,7 @@ export default class Graph {
             borderWidth: 2,
           },
           {
-            label: 'recovered',
+            label: 'Total Recovered',
             fill: false,
 
             data: recoveredCasesData,
@@ -64,12 +119,39 @@ export default class Graph {
             borderWidth: 2,
           },
           {
-            label: 'death',
+            label: 'Total Deaths',
             fill: false,
 
             data: deathCasesData,
             backgroundColor: 'rgba(255, 65, 65, 1)',
             borderColor: 'rgba(255, 65, 65, 1)',
+            borderWidth: 2,
+          },
+          {
+            label: 'Cases/100k',
+            fill: false,
+
+            data: cases100k,
+            backgroundColor: '',
+            borderColor: 'rgba(127, 80, 165, 1)',
+            borderWidth: 2,
+          },
+          {
+            label: 'Recovered/100k',
+            fill: false,
+
+            data: recovered100k,
+            backgroundColor: '',
+            borderColor: 'rgba(232, 212, 111, 1)',
+            borderWidth: 2,
+          },
+          {
+            label: 'Deaths/100k',
+            fill: false,
+
+            data: deaths100k,
+            backgroundColor: '',
+            borderColor: 'rgba(165, 80, 80, 1)',
             borderWidth: 2,
           },
         ],
