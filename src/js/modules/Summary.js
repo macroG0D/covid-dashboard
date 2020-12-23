@@ -19,8 +19,8 @@ export default class Summary {
         this.deaths = 'deaths';
       } else {
         this.confirmed = 'todayCases';
-        this.recovered = 'todayDeaths';
-        this.deaths = 'todayRecovered';
+        this.recovered = 'todayRecovered';
+        this.deaths = 'todayDeaths';
       }
     }
 
@@ -28,11 +28,11 @@ export default class Summary {
       if (this.total) {
         this.confirmed = 'casesPer100k';
         this.recovered = 'recoveredPer100k';
-        this.deaths = 'deathPer100k';
+        this.deaths = 'deathsPer100k';
       } else {
         this.confirmed = 'todayCasesPer100k';
         this.recovered = 'todayRecoveredPer100k';
-        this.deaths = 'todayDeathPer100k';
+        this.deaths = 'todayDeathsPer100k';
       }
     }
   }
