@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable max-len */
 export default class Keyboard {
   elements = {
     main: null,
@@ -23,6 +25,7 @@ export default class Keyboard {
 
     // Setup main elements
     this.elements.main.classList.add('keyboard', 'keyboardHidden');
+    this.elements.main.id = 'keyboard';
     this.elements.keysContainer.classList.add('keyboardKeys');
     this.elements.keysContainer.appendChild(this.createKeys());
     this.elements.keys = this.elements.keysContainer.querySelectorAll('.keyboardKey');
@@ -32,12 +35,22 @@ export default class Keyboard {
     document.body.appendChild(this.elements.main);
 
     // Automatically use keyboard for elements with .use-keyboard-input
-    document.querySelectorAll('.searchBar').forEach((element) => {
+    document.querySelectorAll('.keyboardTrigger').forEach((element) => {
       element.addEventListener('focus', () => {
         this.open(element.value, (currentValue) => {
           element.value = currentValue;
         });
       });
+    });
+
+    // onclose event handler
+    document.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('keyboardKeys') && !e.target.classList.contains('keyboardKey')
+      && !e.target.classList.contains('keyboardTrigger')
+      && !e.target.classList.contains('material-icons')) {
+        // add class keyboardHidden to elements with class keyboard
+        document.getElementById('keyboard').classList.add('keyboardHidden');
+      }
     });
   }
 
