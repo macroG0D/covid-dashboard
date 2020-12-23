@@ -36,7 +36,7 @@
                   <tr>
                     <th class="short-col">#</th>
                     <th class="long-col">Country</th>
-                    <th class="long-col">Total Cases</th>
+                    <th class="long-col" id="countriesStatName">Total Cases</th>
                   </tr>
                 </tbody>
               </table>
@@ -46,6 +46,19 @@
                   <tbody class="countriesTableBody">
                   </tbody>
                 </table>
+              </div>
+              <div class="countries__tabs">
+                <div class="left">
+                  <div class="countriesTabsBtn tabButton pressed" dataType="cases">Total Cases</div>
+                  <div class="countriesTabsBtn tabButton" dataType="recovered">Total Recovered</div>
+                  <div class="countriesTabsBtn tabButton" dataType="deaths">Total Deaths</div>
+                  <div class="countriesTabsBtn tabButton" dataType="todayCases">Today Cases</div>
+                  <div class="countriesTabsBtn tabButton" dataType="todayRecovered">Today Recovered</div>
+                  <div class="countriesTabsBtn tabButton" dataType="todayDeaths">Today Deaths</div>
+                </div>
+                <div class="right">
+                  <div class="countriesTabsSwitch tabButton" dataType="CountriesBtnAbsolute100k">per 100k</div>
+                </div>
               </div>
             </div>
 
@@ -80,7 +93,7 @@
                 <div class="tabButton" id="btnToday">Today</div>
               </div>
               <div class="right">
-                <div class="tabButton" id="btnAbsolute100k"> <span>Absolute</span> / <span>100k</span></div>
+                <div class="tabButton" id="btnAbsolute100k">per 100k</div>
               </div>
             </div>
 

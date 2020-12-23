@@ -18,9 +18,9 @@ async function fetchData() {
 }
 
 // DATA FROM API TO MODULES
-async function modulesController() {
+async function modulesController(dataType) {
   await fetchData();
-  CountriesTable.updateTable(DataFetcher.data);
+  CountriesTable.updateTable(DataFetcher.data, dataType);
   Global.updateGlobal(DataFetcher.data);
   Summary.updateSummary(DataFetcher.data);
   Map.updateMap(DataFetcher.data);
@@ -28,13 +28,12 @@ async function modulesController() {
   keyboard.init();
 }
 
-modulesController();
+modulesController('cases');
 
 // LIVE SEARCH
 const searchInput = document.querySelector('.searchBar');
-const searchBar = new Search();
 
-searchInput.addEventListener('input', searchBar.livesearch);
+searchInput.addEventListener('input', Search.livesearch);
 
 // SUMMARY buttons
 const btnTotal = document.querySelector('#btnTotal');
@@ -75,6 +74,49 @@ btnAbsolute100k.addEventListener('click', () => {
 });
 
 // SELECT COUNTRIES
+const countriesAbsolute100kBtn = document.querySelector('.countriesTabsSwitch');
+countriesAbsolute100kBtn.addEventListener('click', () => {
+  if (CountriesTable.absolute) {
+    CountriesTable.absolute = false;
+    countriesAbsolute100kBtn.classList.add('pressed');
+    CountriesTable.dataType += 'Per100k';
+    DataFetcher.sortByDataType(CountriesTable.dataType);
+  } else {
+    CountriesTable.absolute = true;
+    countriesAbsolute100kBtn.classList.remove('pressed');
+    CountriesTable.dataType = CountriesTable.dataType.slice(0, -7);
+    DataFetcher.sortByDataType(CountriesTable.dataType);
+  }
+  CountriesTable.updateTable(DataFetcher.data, CountriesTable.dataType);
+});
+
+const countriesTabsButtons = document.querySelectorAll('.countriesTabsBtn');
+let selectedCountriesTab = countriesTabsButtons[0];
+countriesTabsButtons.forEach((countryTabBtn, index) => {
+  countryTabBtn.addEventListener('click', () => {
+    if (!countryTabBtn.classList.contains('pressed')) {
+      // switch class
+      selectedCountriesTab.classList.remove('pressed');
+      selectedCountriesTab = countriesTabsButtons[index];
+      countryTabBtn.classList.add('pressed');
+
+      // update table header
+      const tableHeaderStatName = document.querySelector('#countriesStatName');
+      tableHeaderStatName.textContent = countryTabBtn.textContent;
+      // update table data
+      CountriesTable.dataType = countryTabBtn.getAttribute('dataType');
+      if (CountriesTable.absolute) {
+        DataFetcher.sortByDataType(CountriesTable.dataType);
+        CountriesTable.updateTable(DataFetcher.data, CountriesTable.dataType);
+      } else {
+        CountriesTable.dataType += 'Per100k';
+        DataFetcher.sortByDataType(CountriesTable.dataType);
+        CountriesTable.updateTable(DataFetcher.data, CountriesTable.dataType);
+      }
+    }
+  });
+});
+
 const countriesTable = document.querySelector('.countriesTableBody');
 countriesTable.addEventListener('click', (event) => {
   if (event.path[1].nodeName === 'TR') {

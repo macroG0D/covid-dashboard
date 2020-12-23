@@ -1,9 +1,14 @@
 import CurrentCountry from './CurrentCountry';
+import DataFetcher from './DataFetcher';
 
 export default class CountriesTable {
   static table = document.querySelector('.countriesTableBody');
 
-  static updateTable(data) {
+  static absolute = true;
+
+  static dataType = 'cases';
+
+  static updateTable(data, dataType) {
     const tbody = CountriesTable.table;
     // remove old rows on each table update
     if (tbody.children.length > 0) {
@@ -22,20 +27,21 @@ export default class CountriesTable {
       const tdCases = document.createElement('td');
       tdCases.classList.add('long-col');
 
-      // add auto selection to selected country
-      if (index === CurrentCountry.selectedCountryID) {
-        tr.classList.add('selected');
+      // don't give position number to Word if it is first
+      if (data[0].country === 'World') {
+        if (index > 0) {
+          tdPosition.textContent = index;
+        }
+      } else {
+        tdPosition.textContent = index + 1;
       }
-      // don't give position number to Word
-      if (index > 0) {
-        tdPosition.textContent = index;
-      }
+
       tr.setAttribute('id', index);
       tr.setAttribute('name', country.country.toLowerCase());
       tdCountry.textContent = country.country;
       tdCountry.setAttribute('country', country.country.toLowerCase());
-      const total = Number(country.cases).toLocaleString();
-      tdCases.textContent = total;
+      const dataResult = Number(country[dataType]) > 0 ? Number(country[dataType]).toLocaleString() : 'N/A';
+      tdCases.textContent = dataResult;
 
       const flagSpan = document.createElement('span');
       flagSpan.classList.add('flag');
@@ -48,12 +54,16 @@ export default class CountriesTable {
       tr.appendChild(tdPosition);
       tr.appendChild(tdCountry);
       tr.appendChild(tdCases);
-
-      // tr.addEventListener('click', () => {
-      //   handleCountrySelect(country.Slug);
-      // })
-
       tbody.appendChild(tr);
     });
+
+    const countriesRows = document.querySelectorAll('.countryRow');
+    const CurrentCountryIndex = DataFetcher.data.findIndex(
+      (country) => country.country.toLowerCase()
+      === CurrentCountry.selectedCountryName.toLowerCase(),
+    );
+    countriesRows[CurrentCountryIndex].scrollIntoView({ block: 'center', behavior: 'smooth' });
+    // add auto selection to selected country
+    countriesRows[CurrentCountryIndex].classList.add('selected');
   }
 }

@@ -108,6 +108,9 @@ export default class DataFetcher {
   }
 
   static hundredKPopConverter(number, population) {
+    if (population <= 0) {
+      return 0;
+    }
     const countryPopulation = population;
     const HUNDREDK = 100000;
     const hundredK = countryPopulation / HUNDREDK;
@@ -118,15 +121,19 @@ export default class DataFetcher {
     DataFetcher.data.forEach((country) => {
       country.casesPer100k = DataFetcher.hundredKPopConverter(country.cases, country.population);
       country.recoveredPer100k = DataFetcher.hundredKPopConverter(country.recovered, country.population);
-      country.deathPer100k = DataFetcher.hundredKPopConverter(country.deaths, country.population);
+      country.deathsPer100k = DataFetcher.hundredKPopConverter(country.deaths, country.population);
       country.todayCasesPer100k = DataFetcher.hundredKPopConverter(country.todayCases, country.population);
       country.todayRecoveredPer100k = DataFetcher.hundredKPopConverter(country.todayRecovered, country.population);
-      country.todayDeathPer100k = DataFetcher.hundredKPopConverter(country.todayDeaths, country.population);
+      country.todayDeathsPer100k = DataFetcher.hundredKPopConverter(country.todayDeaths, country.population);
     });
   }
 
   // sync and update all the data in all modules
   async updateModules() {
     await this.getCovidData();
+  }
+
+  static sortByDataType(dataType) {
+    DataFetcher.data.sort((a, b) => b[dataType] - a[dataType]);
   }
 }

@@ -1,5 +1,5 @@
 export default class Search {
-  livesearch() {
+  static livesearch() {
     const countryCells = document.querySelectorAll('.countryCell');
     const searchBar = document.querySelector('.searchBar');
     const searchRequest = searchBar.value.toLowerCase();
