@@ -39,6 +39,7 @@ searchInput.addEventListener('input', Search.livesearch);
 // SUMMARY buttons
 const btnTotal = document.querySelector('#btnTotal');
 const btnToday = document.querySelector('#btnToday');
+const switchChartBtn = document.querySelector('#switchChartBtn');
 const btnAbsolute100k = document.querySelector('#btnAbsolute100k');
 
 btnTotal.addEventListener('click', () => {
@@ -59,6 +60,16 @@ btnToday.addEventListener('click', () => {
     btnToday.classList.add('pressed');
     btnTotal.classList.remove('pressed');
     Summary.updateSummary(DataFetcher.data);
+    Graph.showPolarChart();
+  }
+});
+
+switchChartBtn.addEventListener('click', (e) => {
+  if (e.target.classList.contains('active')) {
+    e.target.classList.remove('active');
+    Graph.showChart();
+  } else {
+    e.target.classList.add('active');
     Graph.showPolarChart();
   }
 });

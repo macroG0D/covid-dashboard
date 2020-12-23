@@ -747,3 +747,22 @@ table {
 .keyboardKeyDark {
   background-color: rgb(0, 0, 0);
 }
+
+.switchChartBtn{
+  position: absolute;
+  top: 10px;
+  left: 0px;
+  color: white;
+  background-color: gray;
+  border: none;
+  width: 15%;
+  height: 6%;
+  cursor: pointer;
+}
+.switchChartBtn:hover{
+  cursor: pointer;
+  background-color: dimgray;
+}
+.switchChartBtn.active {
+  background-color: red;
+}
