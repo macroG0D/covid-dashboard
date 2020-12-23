@@ -1,3 +1,4 @@
+import Search from './Search';
 /* eslint-disable no-param-reassign */
 /* eslint-disable max-len */
 export default class Keyboard {
@@ -18,7 +19,6 @@ export default class Keyboard {
   }
 
   init() {
-    console.log('KEYBAORD LOAING');
     // Create main elements
     this.elements.main = document.createElement('div');
     this.elements.keysContainer = document.createElement('div');
@@ -34,11 +34,16 @@ export default class Keyboard {
     this.elements.main.appendChild(this.elements.keysContainer);
     document.body.appendChild(this.elements.main);
 
+    const searchInput = document.querySelector('.searchBar');
+
     // Automatically use keyboard for elements with .use-keyboard-input
     document.querySelectorAll('.keyboardTrigger').forEach((element) => {
       element.addEventListener('click', () => {
         this.open(element.value, (currentValue) => {
           element.value = currentValue;
+          searchInput.value = element.value;
+          searchInput.focus();
+          Search.livesearch();
         });
       });
     });

@@ -23,7 +23,6 @@ async function modulesDefaultInitiator(dataType) {
   CountriesTable.updateTable(DataFetcher.data, dataType);
   Global.updateGlobal(DataFetcher.data);
   Summary.updateSummary(DataFetcher.data);
-  // Map.updateMap(DataFetcher.data, dataType);
   Map.init(DataFetcher.data, CountriesTable.dataType);
   Graph.showChart();
   keyboard.init();
@@ -60,15 +59,16 @@ btnToday.addEventListener('click', () => {
     btnToday.classList.add('pressed');
     btnTotal.classList.remove('pressed');
     Summary.updateSummary(DataFetcher.data);
-    Graph.showPolarChart();
   }
 });
 
 switchChartBtn.addEventListener('click', (e) => {
   if (e.target.classList.contains('active')) {
     e.target.classList.remove('active');
+    Graph.total = true;
     Graph.showChart();
   } else {
+    Graph.total = false;
     e.target.classList.add('active');
     Graph.showPolarChart();
   }
@@ -159,7 +159,7 @@ countriesTable.addEventListener('click', (event) => {
       Global.updateGlobal(DataFetcher.data);
       CurrentCountry.updateCurrentCountryLongLat();
       Map.selectCountryOnMap(CurrentCountry.long, CurrentCountry.lat);
-      if (Summary.total) {
+      if (Graph.total) {
         Graph.showChart();
       } else {
         Graph.showPolarChart();
