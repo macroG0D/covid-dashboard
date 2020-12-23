@@ -18,17 +18,18 @@ async function fetchData() {
 }
 
 // DATA FROM API TO MODULES
-async function modulesController(dataType) {
+async function modulesDefaultInitiator(dataType) {
   await fetchData();
   CountriesTable.updateTable(DataFetcher.data, dataType);
   Global.updateGlobal(DataFetcher.data);
   Summary.updateSummary(DataFetcher.data);
-  Map.updateMap(DataFetcher.data);
+  // Map.updateMap(DataFetcher.data, dataType);
+  Map.init(DataFetcher.data, CountriesTable.dataType);
   Graph.showChart();
   keyboard.init();
 }
 
-modulesController('cases');
+modulesDefaultInitiator('cases');
 
 // LIVE SEARCH
 const searchInput = document.querySelector('.searchBar');
@@ -88,6 +89,9 @@ countriesAbsolute100kBtn.addEventListener('click', () => {
     DataFetcher.sortByDataType(CountriesTable.dataType);
   }
   CountriesTable.updateTable(DataFetcher.data, CountriesTable.dataType);
+  CountriesTable.updateTable(DataFetcher.data, CountriesTable.dataType);
+  Map.init(DataFetcher.data, CountriesTable.dataType);
+  Map.selectCountryOnMap(CurrentCountry.long, CurrentCountry.lat);
 });
 
 const countriesTabsButtons = document.querySelectorAll('.countriesTabsBtn');
@@ -107,12 +111,14 @@ countriesTabsButtons.forEach((countryTabBtn, index) => {
       CountriesTable.dataType = countryTabBtn.getAttribute('dataType');
       if (CountriesTable.absolute) {
         DataFetcher.sortByDataType(CountriesTable.dataType);
-        CountriesTable.updateTable(DataFetcher.data, CountriesTable.dataType);
       } else {
         CountriesTable.dataType += 'Per100k';
         DataFetcher.sortByDataType(CountriesTable.dataType);
-        CountriesTable.updateTable(DataFetcher.data, CountriesTable.dataType);
       }
+      CurrentCountry.dataType = countryTabBtn.textContent;
+      CountriesTable.updateTable(DataFetcher.data, CountriesTable.dataType);
+      Map.init(DataFetcher.data, CountriesTable.dataType);
+      Map.selectCountryOnMap(CurrentCountry.long, CurrentCountry.lat);
     }
   });
 });
@@ -140,15 +146,6 @@ countriesTable.addEventListener('click', (event) => {
 });
 
 // MAP LEGEND
-const mapLegend = document.querySelectorAll('.legendItem');
-mapLegend.forEach((marker) => {
-  let size = marker.getAttribute('size');
-  size = (Map.setMarkerSize(size) * 10) - 1.8;
-  // eslint-disable-next-line no-param-reassign
-  marker.children[0].style.width = `${size}px`;
-  // eslint-disable-next-line no-param-reassign
-  marker.children[0].style.height = `${size}px`;
-});
 
 // FULL SCREEN
 // const moduleWrappers = document.querySelectorAll('.moduleWrapper');
