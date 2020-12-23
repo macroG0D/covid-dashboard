@@ -87,7 +87,7 @@ btnAbsolute100k.addEventListener('click', () => {
   Summary.updateSummary(DataFetcher.data);
 });
 
-// SELECT COUNTRIES
+// COUNTRIES BUTTONS
 const countriesAbsolute100kBtn = document.querySelector('.countriesTabsSwitch');
 countriesAbsolute100kBtn.addEventListener('click', () => {
   if (CountriesTable.absolute) {
@@ -142,7 +142,13 @@ countriesTable.addEventListener('click', (event) => {
     const selectedCountry = event.path[1];
     if (!selectedCountry.classList.contains('selected')) {
       // remove selection from previousely selected row
+      CurrentCountry.selectedCountryID = DataFetcher.data.findIndex(
+        (country) => country.country.toLowerCase()
+        === CurrentCountry.selectedCountryName.toLowerCase(),
+      );
+
       const previouslySelected = document.getElementById(`${CurrentCountry.selectedCountryID}`);
+      // const previouslySelected = DataFetcher.data[previouslySelectedInde]
       previouslySelected.classList.remove('selected');
       // add selection to current selected row
       selectedCountry.classList.add('selected');
@@ -161,8 +167,6 @@ countriesTable.addEventListener('click', (event) => {
     }
   }
 });
-
-// MAP LEGEND
 
 // FULL SCREEN
 // const moduleWrappers = document.querySelectorAll('.moduleWrapper');
