@@ -281,12 +281,14 @@ table {
     border-radius: 0rem 1rem 1rem 0;
     height: 4.2rem;
     width: 1rem;
+    pointer-events: none;
     cursor: pointer;
     &:after {
       content: url('../assets/icons/keyboard.svg');
       position: absolute;
       top: 50%;
       right: 1rem;
+      pointer-events: all;
       opacity: 0.5;
       transform: translateY(-40%);
       @include trans();

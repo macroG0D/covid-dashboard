@@ -36,7 +36,7 @@ export default class Keyboard {
 
     // Automatically use keyboard for elements with .use-keyboard-input
     document.querySelectorAll('.keyboardTrigger').forEach((element) => {
-      element.addEventListener('focus', () => {
+      element.addEventListener('click', () => {
         this.open(element.value, (currentValue) => {
           element.value = currentValue;
         });
