@@ -3,10 +3,9 @@ export default class Fullscreen {
     this.fullscreen = false;
   }
 
-  fullscreenMode(moduleWrapper) {
-    this.fullscreen = true;
-    console.log(moduleWrapper);
-  }
+  // fullscreenMode(moduleWrapper) {
+  //   this.fullscreen = true;
+  // }
 
   closeFullScreen() {}
 }
