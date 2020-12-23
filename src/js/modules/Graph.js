@@ -20,6 +20,42 @@ export default class Graph {
     countryNameOnCharts.textContent = `${CurrentCountry.selectedCountryName.toUpperCase()}`;
   }
 
+  static showPolarChart() {
+    // if chart is already exists — destroy it
+    Graph.destroyChart(Graph.myChart);
+    Graph.displayCountryOnCharts();
+    // create new instance
+    const data = {
+      datasets: [{
+        data: [
+          DataFetcher.data[CurrentCountry.selectedCountryID].todayCases,
+          DataFetcher.data[CurrentCountry.selectedCountryID].todayRecovered,
+          DataFetcher.data[CurrentCountry.selectedCountryID].todayDeaths,
+        ],
+        backgroundColor: [
+          'rgba(255,255,255,0.7)',
+          'rgba(100, 206, 129, 0.7)',
+          'rgba(255,0,0,0.7)',
+        ],
+        legend: 'Today polar chart', // for legend
+      }],
+      labels: [
+        'Today Cases',
+        'Today Recovered',
+        'Today Deaths',
+      ],
+    };
+    const ctx = document.getElementById('myChart').getContext('2d');
+    Graph.myChart = new Chart(ctx, {
+      data,
+      type: 'pie',
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
+  }
+
   static showChart() {
     const ctx = document.getElementById('myChart').getContext('2d');
     Graph.displayCountryOnCharts();

@@ -48,6 +48,7 @@ btnTotal.addEventListener('click', () => {
     btnTotal.classList.add('pressed');
     btnToday.classList.remove('pressed');
     Summary.updateSummary(DataFetcher.data);
+    Graph.showChart();
   }
 });
 
@@ -58,6 +59,7 @@ btnToday.addEventListener('click', () => {
     btnToday.classList.add('pressed');
     btnTotal.classList.remove('pressed');
     Summary.updateSummary(DataFetcher.data);
+    Graph.showPolarChart();
   }
 });
 
@@ -140,7 +142,11 @@ countriesTable.addEventListener('click', (event) => {
       Global.updateGlobal(DataFetcher.data);
       CurrentCountry.updateCurrentCountryLongLat();
       Map.selectCountryOnMap(CurrentCountry.long, CurrentCountry.lat);
-      Graph.showChart();
+      if (Summary.total) {
+        Graph.showChart();
+      } else {
+        Graph.showPolarChart();
+      }
     }
   }
 });
