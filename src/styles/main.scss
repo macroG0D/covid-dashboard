@@ -224,6 +224,9 @@ table {
   margin-bottom: 1rem;
 
   &__header {
+    .activeCases {
+      color: $accent-color;
+    }
     @include fontstyle(1.4rem, $medium);
     margin: 0;
   }
@@ -338,7 +341,7 @@ table {
   th {
     &:hover {
       opacity: 0.8;
-      letter-spacing: 0.1rem;
+      user-select: none;
     }
   }
 }

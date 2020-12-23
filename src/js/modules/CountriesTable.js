@@ -1,5 +1,6 @@
 import CurrentCountry from './CurrentCountry';
 import DataFetcher from './DataFetcher';
+import Search from './Search';
 
 export default class CountriesTable {
   static table = document.querySelector('.countriesTableBody');
@@ -65,5 +66,6 @@ export default class CountriesTable {
     countriesRows[CurrentCountryIndex].scrollIntoView({ block: 'center', behavior: 'smooth' });
     // add auto selection to selected country
     countriesRows[CurrentCountryIndex].classList.add('selected');
+    Search.livesearch();
   }
 }

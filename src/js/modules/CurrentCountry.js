@@ -5,9 +5,11 @@ export default class CurrentCountry {
 
   static selectedCountryName = 'World';
 
-  static long = 0;
+  static dataType = 'Total Cases';
 
-  static lat = 0;
+  static long = -15;
+
+  static lat = -20;
 
   static updateCurrentCountryLongLat() {
     CurrentCountry.long = DataFetcher.data[CurrentCountry.selectedCountryID].countryInfo.long;
