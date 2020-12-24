@@ -38,6 +38,7 @@ export default class Map {
     map.dragRotate.disable();
     // disable map rotation using touch rotation gesture
     map.touchZoomRotate.disableRotation();
+    map.flyTo({ center: [CurrentCountry.long, CurrentCountry.lat], zoom: 3 });
   }
 
   static updateMap(countriesData, dataType) {
@@ -71,7 +72,7 @@ export default class Map {
     return size;
   }
 
-  static markerProperties(dataType) {
+  static setMarkerColor(dataType) {
     let markerColor = '';
     switch (dataType) {
       case 'cases':
@@ -118,6 +119,7 @@ export default class Map {
 
   static mapLegendUpdate() {
     const mapLegend = document.querySelectorAll('.legendItem');
+    const legend = document.querySelector('.legend');
     mapLegend.forEach((marker) => {
       let size = marker.getAttribute('size');
       size = (Map.setMarkerSize(size) * 10) - 1.8;
@@ -128,32 +130,23 @@ export default class Map {
       // eslint-disable-next-line no-param-reassign
       marker.children[0].style.height = `${size}px`;
     });
+    legend.classList.add('legendShow');
   }
 
-  static resizeMap(fullScreenMode) {
-    if (fullScreenMode) {
-      setTimeout(() => {
-        map.resize();
-      }, 500);
-    } else {
-      setTimeout(() => {
-        map.resize();
-      }, 500);
-    }
-    CurrentCountry.selectedCountryID = DataFetcher.data.findIndex(
-      (country) => country.country.toLowerCase()
-      === CurrentCountry.selectedCountryName.toLowerCase(),
-    );
-    if (fullScreenMode) {
-      map.flyTo({ center: [0, 0], zoom: 3 });
-    } else {
-      map.flyTo({ center: [0, 0], zoom: 1 });
-    }
+  // resize and animate map when switching to fullscreen mode and back to normal
+  static resizeMap() {
+    setTimeout(() => {
+      map.resize();
+    }, 500);
+    map.flyTo({ center: [CurrentCountry.long, CurrentCountry.lat], zoom: 10 });
+    setTimeout(() => {
+      map.flyTo({ center: [CurrentCountry.long, CurrentCountry.lat], zoom: 5 });
+    }, 750);
   }
 
   static setMarkers(countriesData, dataType) {
     const mapPopupsData = [];
-    Map.markerColor = Map.markerProperties(dataType);
+    Map.markerColor = Map.setMarkerColor(dataType);
     Map.mapLegendUpdate();
     countriesData.forEach((country) => {
       const { long } = country.countryInfo;

@@ -12,11 +12,15 @@ export default class FullScreen {
     this.fullScreenMode = true;
     this.fullScreenModule.classList.add('fullScreenModuleOn');
     this.fullScreenModule.append(this.moduleBlock);
+    const body = document.querySelector('body');
+    body.style.overflow = 'hidden';
   }
 
   fullScreenModeOff() {
     this.fullScreenMode = false;
     this.fullScreenModule.classList.remove('fullScreenModuleOn');
     this.homePlace.append(this.moduleBlock);
+    const body = document.querySelector('body');
+    body.style.overflow = 'auto';
   }
 }
