@@ -723,6 +723,7 @@ table {
 
 @media (max-width: 1000px) {
   .graph {
+    min-height: 40rem;
     &__canvas {
       position: static;
     }
@@ -934,7 +935,7 @@ table {
   .graph {
     height: 99%;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 1000px) {
     z-index: 999999;
     padding: 0;
     padding-bottom: 1rem;
