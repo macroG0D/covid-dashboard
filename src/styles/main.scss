@@ -188,9 +188,41 @@ main {
 .moduleWrapper {
   @include moduleWidth();
   @include flexModel();
-  padding: 3% 0 0;
+  padding: 0.5rem 0 0;
   height: 100%;
+  position: relative;
+  .fullScreenBtn {
+    opacity: 0;
+    background: rgba(125, 141, 164, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: 100%;
+    border: .1rem solid $table-div-color;
+    width: 4rem;
+    height: 4rem;
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+    z-index: 999;
+    cursor: pointer;
+    @include trans(.25s);
+    &:after {
+      content: url("../assets/icons/fullScreen_on.svg");
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    &:hover {
+      box-shadow: $pressed;
+    }
+  }
+  &:hover {
+    .fullScreenBtn {
+      opacity: 1;
+    }
+  }
 }
+
+
 
 .global,
 .countries,
@@ -504,6 +536,9 @@ table {
 }
 
 @media (max-width: 1000px) {
+  .moduleWrapper {
+    padding: 3% 0 0;
+  }
   .countries {
     &__table-wrapper {
       padding-bottom: 12rem;
@@ -538,31 +573,8 @@ table {
 
 @media (max-height: 941px) {
   .countries {
-    height: 40vh;
+    height: 35vh;
     min-height: 60%;
-  }
-}
-
-@media (max-height: 768px) {
-  .countries {
-    min-height: 20rem;
-  }
-}
-// @media screen and (min-height: 750px) and (min-width: 1188px) {
-//   body {
-//     padding-bottom: 5rem;
-//   }
-// }
-
-@media (max-height: 620px) {
-  body {
-    padding-bottom: 12rem;
-  }
-}
-
-@media (max-height: 550px) {
-  body {
-    padding-bottom: 30rem;
   }
 }
 
@@ -842,4 +854,22 @@ table {
   background: #313640 !important;
   color: rgba(255, 255, 255, 0.6);
   box-shadow: $pressed;
+}
+
+.fullScreenModule {
+  background: $bg-color;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 5% 5% 15%;
+  overflow: hidden;
 }

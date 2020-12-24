@@ -69,7 +69,7 @@ export default class DataFetcher {
     const countriesTimeLineStatsResponse = await fetch('https://disease.sh/v3/covid-19/historical/');
     const countriesTimeLineStats = await countriesTimeLineStatsResponse.json();
     allCountries.forEach((country) => {
-      const matchedCountry = countriesTimeLineStats.find((countriesWithTimeLine) => countriesWithTimeLine.country === country.country);
+      const matchedCountry = countriesTimeLineStats.find((countriesWithTimeLine) => (countriesWithTimeLine.country === country.country) && countriesWithTimeLine.province == null);
       if (matchedCountry) {
         country.timeline = matchedCountry.timeline;
       } else { // if no historical data for country — generate it from known information
