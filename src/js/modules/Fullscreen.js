@@ -1,11 +1,22 @@
-export default class Fullscreen {
+export default class FullScreen {
   constructor() {
-    this.fullscreen = false;
+    this.moduleBlock = '';
+    this.homePlace = '';
+    this.fullScreenMode = false;
+    this.fullScreenModule = document.querySelector('.fullScreenModule');
   }
 
-  // fullscreenMode(moduleWrapper) {
-  //   this.fullscreen = true;
-  // }
+  fullScreenModeOn(moduleBlock, homePlace) {
+    this.moduleBlock = moduleBlock;
+    this.homePlace = homePlace;
+    this.fullScreenMode = true;
+    this.fullScreenModule.classList.add('fullScreenModuleOn');
+    this.fullScreenModule.append(this.moduleBlock);
+  }
 
-  closeFullScreen() {}
+  fullScreenModeOff() {
+    this.fullScreenMode = false;
+    this.fullScreenModule.classList.remove('fullScreenModuleOn');
+    this.homePlace.append(this.moduleBlock);
+  }
 }

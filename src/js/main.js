@@ -8,6 +8,7 @@ import Search from './modules/Search';
 import Map from './modules/Map';
 import Graph from './modules/Graph';
 import Keyboard from './modules/Keyboard';
+import FullScreen from './modules/FullScreen';
 
 const keyboard = new Keyboard();
 
@@ -168,33 +169,14 @@ countriesTable.addEventListener('click', (event) => {
 });
 
 // FULL SCREEN
-let fullscreenOn = false;
-
-function createFullScreenModule(moduleBlock) {
-  const fullScreenModule = document.createElement('div');
-  const copy = moduleBlock.cloneNode(true);
-  const closeBtn = copy.querySelector('.fullScreenBtn');
-  if (!fullscreenOn) {
-    fullscreenOn = true;
-    fullScreenModule.classList.add('fullScreenModule');
-    const main = document.querySelector('main');
-    fullScreenModule.append(copy);
-    main.appendChild(fullScreenModule);
-  }
-  closeBtn.addEventListener('click', () => {
-    copy.remove();
-    fullScreenModule.remove();
-    fullscreenOn = false;
-  });
-}
-
-const moduleWrappers = document.querySelectorAll('.moduleWrapper');
-moduleWrappers.forEach((moduleWrapper) => {
-  const fullScreenBtn = document.createElement('div');
-  fullScreenBtn.classList.add('fullScreenBtn');
-  moduleWrapper.append(fullScreenBtn);
-  fullScreenBtn.addEventListener('click', (e) => {
-    const moduleBlock = e.path[1];
-    createFullScreenModule(moduleBlock);
+const fullScreen = new FullScreen();
+const fullScreenButtons = document.querySelectorAll('.fullScreenBtn');
+fullScreenButtons.forEach((fullScreenButton) => {
+  fullScreenButton.addEventListener('click', (e) => {
+    if (!fullScreen.fullScreenMode) {
+      fullScreen.fullScreenModeOn(e.path[1], e.path[1].parentNode);
+    } else {
+      fullScreen.fullScreenModeOff();
+    }
   });
 });

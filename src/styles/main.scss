@@ -191,38 +191,7 @@ main {
   padding: 0.5rem 0 0;
   height: 100%;
   position: relative;
-  .fullScreenBtn {
-    opacity: 0;
-    background: rgba(125, 141, 164, 0.5);
-    backdrop-filter: blur(5px);
-    border-radius: 100%;
-    border: .1rem solid $table-div-color;
-    width: 4rem;
-    height: 4rem;
-    position: absolute;
-    top: 3rem;
-    right: 3rem;
-    z-index: 999;
-    cursor: pointer;
-    @include trans(.25s);
-    &:after {
-      content: url("../assets/icons/fullScreen_on.svg");
-      display: flex;
-      justify-content: center;
-      margin-top: 1rem;
-    }
-    &:hover {
-      box-shadow: $pressed;
-    }
-  }
-  &:hover {
-    .fullScreenBtn {
-      opacity: 1;
-    }
-  }
 }
-
-
 
 .global,
 .countries,
@@ -276,6 +245,10 @@ table {
 
 .searchANDcountriesTableWrapper {
   @include flexModel(center, center, column);
+  @include moduleWidth();
+  padding: 0.5rem 0 0;
+  height: 100%;
+  position: relative;
 }
 
 .search {
@@ -866,7 +839,7 @@ table {
   position: fixed;
   opacity: 1;
   top: 0;
-  left: 0;
+  right: -100%;
   z-index: 999;
   margin: 0 auto;
   display: flex;
@@ -875,4 +848,42 @@ table {
   z-index: 999;
   padding: 5% 5% 15%;
   overflow: hidden;
+  @include trans(.5s);
+}
+
+.fullScreenModuleOn {
+  right: 0;
+}
+
+.moduleBlock {
+  width: 100%;
+  .fullScreenBtn {
+    opacity: 0;
+    background: rgba(125, 141, 164, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: 100%;
+    border: .1rem solid $table-div-color;
+    width: 4rem;
+    height: 4rem;
+    position: absolute;
+    top: 0rem;
+    right: 0rem;
+    z-index: 999;
+    cursor: pointer;
+    @include trans(.25s);
+    &:after {
+      content: url("../assets/icons/fullScreen_on.svg");
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    &:hover {
+      box-shadow: $pressed;
+    }
+  }
+  &:hover {
+    .fullScreenBtn {
+      opacity: 1;
+    }
+  }
 }
