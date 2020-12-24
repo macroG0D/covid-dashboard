@@ -15,21 +15,22 @@
     <div class="contentWrapper">
       <div class="contentWrapper__contentLeft">
         <div class="moduleWrapper">
-          <div class="global">
+          <div class="moduleBlock global">
             <h1 class="global__header">Worldwide COVID-19 active Cases</h1>
             <div class="global__total"></div>
+            <div class="fullScreenBtn"></div>
           </div>
         </div>
 
-        <div class="moduleWrapper searchANDcountriesTableWrapper">
-
+        <div class="moduleWrapper test">
+          <div class="moduleBlock searchANDcountriesTableWrapper">
             <div class="search">
               <div class="searchIcon"></div>
               <input class="searchBar" placeholder="Search">
               <div class="virtualKeyboard_button keyboardTrigger"></div>
             </div>
             <div class="countries">
-  
+
               <table class="tableHeaders countries__fixedHeader">
                 <tbody>
                   <tr>
@@ -39,7 +40,7 @@
                   </tr>
                 </tbody>
               </table>
-  
+
               <div class="countries__table-wrapper">
                 <table class="countries__mainTable mainTable">
                   <tbody class="countriesTableBody">
@@ -60,11 +61,12 @@
                 </div>
               </div>
             </div>
-
+            <div class="fullScreenBtn"></div>
+          </div>
         </div>
 
         <div class="moduleWrapper">
-          <div class="summary">
+          <div class="moduleBlock summary">
 
             <table class="tableHeaders summary__fixedHeader">
               <tbody>
@@ -95,65 +97,78 @@
                 <div class="tabButton" id="btnAbsolute100k">per 100k</div>
               </div>
             </div>
-
+            <div class="fullScreenBtn"></div>
           </div>
 
         </div>
 
       </div>
-      
+
       <div class="contentWrapper__contentRight">
         <div class="moduleWrapper">
-          <div class="map" id="MAP">
+          <div class="moduleBlock map" id="MAP">
             <div class="legend">
               <div class="legendItem" size="999">
-                <div class="legendMarker"></div> <div> &lt1,000 </div>
+                <div class="legendMarker"></div>
+                <div> &lt1,000 </div>
               </div>
               <div class="legendItem" size="2999">
-                <div class="legendMarker"></div> <div>1,000 - 3,000</div>
+                <div class="legendMarker"></div>
+                <div>1,000 - 3,000</div>
               </div>
               <div class="legendItem" size="19999">
-                <div class="legendMarker"></div> <div>3,000 - 20,000</div>
+                <div class="legendMarker"></div>
+                <div>3,000 - 20,000</div>
               </div>
               <div class="legendItem" size="49999">
-                <div class="legendMarker"></div> <div>20,000 - 50,000</div>
+                <div class="legendMarker"></div>
+                <div>20,000 - 50,000</div>
               </div>
               <div class="legendItem" size="99999">
-                <div class="legendMarker"></div> <div>50,000 - 100,000</div>
+                <div class="legendMarker"></div>
+                <div>50,000 - 100,000</div>
               </div>
               <div class="legendItem" size="249999">
-                <div class="legendMarker"></div> <div>100,000 - 250,000</div>
+                <div class="legendMarker"></div>
+                <div>100,000 - 250,000</div>
               </div>
               <div class="legendItem" size="499999">
-                <div class="legendMarker"></div> <div>250,000 - 500,000</div>
+                <div class="legendMarker"></div>
+                <div>250,000 - 500,000</div>
               </div>
               <div class="legendItem" size="999999">
-                <div class="legendMarker"></div> <div>500,000 - 1,000,000</div>
+                <div class="legendMarker"></div>
+                <div>500,000 - 1,000,000</div>
               </div>
               <div class="legendItem" size="4999999">
-                <div class="legendMarker"></div> <div>1,000,000 - 5,000,000</div>
+                <div class="legendMarker"></div>
+                <div>1,000,000 - 5,000,000</div>
               </div>
               <div class="legendItem" size="5000000">
-                <div class="legendMarker"></div> <div>&gt5,000,000</div>
+                <div class="legendMarker"></div>
+                <div>&gt5,000,000</div>
               </div>
 
             </div>
+            <div class="fullScreenBtn"></div>
           </div>
-          
+
         </div>
 
         <div class="moduleWrapper">
-          <div class="graph">
+          <div class="moduleBlock graph">
             <button id="switchChartBtn" class="switchChartBtn">Total/Today</button>
             <div class="countryNameOnChartsWrapper">
               <h2 class="countryNameOnCharts">World</h2>
             </div>
             <canvas class="graph__canvas" id="myChart"></canvas>
+            <div class="fullScreenBtn"></div>
           </div>
         </div>
 
       </div>
     </div>
+    <div class="fullScreenModule"></div>
   </main>
 
   <footer class="footer">
