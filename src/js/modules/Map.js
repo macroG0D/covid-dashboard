@@ -229,14 +229,15 @@ export default class Map {
           }
 
           // scroll countires table to selected country
-          // eslint-disable-next-line no-unused-vars
           const promise = new Promise(() => {
             setTimeout(() => {
               countryRow.scrollIntoView({ block: 'center', behavior: 'smooth' });
               // need timeout becouse showChart is changing focus on itself
               // and preventing scrollIntoView function
             }, 300);
-          }).then(Graph.total ? Graph.showChart() : Graph.showPolarChart(),
+          });
+
+          promise.then(Graph.total ? Graph.showChart() : Graph.showPolarChart(),
             Summary.updateSummary(DataFetcher.data),
             Global.updateGlobal(DataFetcher.data),
             CurrentCountry.updateCurrentCountryLongLat());
