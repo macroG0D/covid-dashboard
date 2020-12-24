@@ -91,8 +91,8 @@ export default class Graph {
       recoveredCasesData = Object.values(currentCountryTimeline.recovered);
     } catch (e) {
       const lastUpdated = getTodayConvertedDate();
-      const firstKnownCovidCase = '11/11/19';
-      labelsData = [firstKnownCovidCase, lastUpdated];
+      const FIRSTKNOWNCOVIDCASE = '11/11/19';
+      labelsData = [FIRSTKNOWNCOVIDCASE, lastUpdated];
       casesData = [0, currentCountryTimeline[0]];
       recoveredCasesData = [0, currentCountryTimeline[1]];
       deathCasesData = [0, currentCountryTimeline[2]];

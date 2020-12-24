@@ -48,7 +48,6 @@ btnTotal.addEventListener('click', () => {
     btnTotal.classList.add('pressed');
     btnToday.classList.remove('pressed');
     Summary.updateSummary(DataFetcher.data);
-    Graph.showChart();
   }
 });
 
@@ -169,4 +168,33 @@ countriesTable.addEventListener('click', (event) => {
 });
 
 // FULL SCREEN
-// const moduleWrappers = document.querySelectorAll('.moduleWrapper');
+let fullscreenOn = false;
+
+function createFullScreenModule(moduleBlock) {
+  const fullScreenModule = document.createElement('div');
+  const copy = moduleBlock.cloneNode(true);
+  const closeBtn = copy.querySelector('.fullScreenBtn');
+  if (!fullscreenOn) {
+    fullscreenOn = true;
+    fullScreenModule.classList.add('fullScreenModule');
+    const main = document.querySelector('main');
+    fullScreenModule.append(copy);
+    main.appendChild(fullScreenModule);
+  }
+  closeBtn.addEventListener('click', () => {
+    copy.remove();
+    fullScreenModule.remove();
+    fullscreenOn = false;
+  });
+}
+
+const moduleWrappers = document.querySelectorAll('.moduleWrapper');
+moduleWrappers.forEach((moduleWrapper) => {
+  const fullScreenBtn = document.createElement('div');
+  fullScreenBtn.classList.add('fullScreenBtn');
+  moduleWrapper.append(fullScreenBtn);
+  fullScreenBtn.addEventListener('click', (e) => {
+    const moduleBlock = e.path[1];
+    createFullScreenModule(moduleBlock);
+  });
+});
