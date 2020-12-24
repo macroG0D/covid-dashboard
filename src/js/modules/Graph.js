@@ -23,6 +23,10 @@ export default class Graph {
   }
 
   static showPolarChart() {
+    CurrentCountry.selectedCountryID = DataFetcher.data.findIndex(
+      (country) => country.country.toLowerCase()
+      === CurrentCountry.selectedCountryName.toLowerCase(),
+    );
     // if chart is already exists — destroy it
     Graph.destroyChart(Graph.myChart);
     Graph.displayCountryOnCharts();
@@ -76,6 +80,10 @@ export default class Graph {
   static showChart() {
     const ctx = document.getElementById('myChart').getContext('2d');
     Graph.displayCountryOnCharts();
+    CurrentCountry.selectedCountryID = DataFetcher.data.findIndex(
+      (country) => country.country.toLowerCase()
+      === CurrentCountry.selectedCountryName.toLowerCase(),
+    );
     const currentCountryTimeline = DataFetcher.data[CurrentCountry.selectedCountryID].timeline;
     const { population } = DataFetcher.data[CurrentCountry.selectedCountryID];
 
