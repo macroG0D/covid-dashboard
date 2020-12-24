@@ -175,8 +175,10 @@ fullScreenButtons.forEach((fullScreenButton) => {
   fullScreenButton.addEventListener('click', (e) => {
     if (!fullScreen.fullScreenMode) {
       fullScreen.fullScreenModeOn(e.path[1], e.path[1].parentNode);
+      Map.resizeMap(true);
     } else {
       fullScreen.fullScreenModeOff();
+      Map.resizeMap(false);
     }
   });
 });

@@ -11,14 +11,14 @@ mapboxgl.accessToken = 'pk.eyJ1IjoieWVtZGlnaXRhbCIsImEiOiJjanl0eHMxNm0wMGVpM2Jtb
 let map;
 
 export default class Map {
-  static selectCountryOnMap(long, lat) {
+  static selectCountryOnMap(long, lat, zoomLvl = 1) {
     const WORDMARKERLONG = -15;
     const WORDMARKERLAT = -20;
     // if selected country is World
     if (long === WORDMARKERLONG && lat === WORDMARKERLAT) {
-      map.flyTo({ center: [0, 0], zoom: 1 });
+      map.flyTo({ center: [0, 0], zoom: 1 * zoomLvl });
     } else {
-      map.flyTo({ center: [long, lat], zoom: 4 });
+      map.flyTo({ center: [long, lat], zoom: 4 * zoomLvl });
     }
   }
 
@@ -128,6 +128,27 @@ export default class Map {
       // eslint-disable-next-line no-param-reassign
       marker.children[0].style.height = `${size}px`;
     });
+  }
+
+  static resizeMap(fullScreenMode) {
+    if (fullScreenMode) {
+      setTimeout(() => {
+        map.resize();
+      }, 500);
+    } else {
+      setTimeout(() => {
+        map.resize();
+      }, 500);
+    }
+    CurrentCountry.selectedCountryID = DataFetcher.data.findIndex(
+      (country) => country.country.toLowerCase()
+      === CurrentCountry.selectedCountryName.toLowerCase(),
+    );
+    if (fullScreenMode) {
+      map.flyTo({ center: [0, 0], zoom: 3 });
+    } else {
+      map.flyTo({ center: [0, 0], zoom: 1 });
+    }
   }
 
   static setMarkers(countriesData, dataType) {
