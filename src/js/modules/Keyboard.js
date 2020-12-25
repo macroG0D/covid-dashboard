@@ -2,6 +2,10 @@ import Search from './Search';
 /* eslint-disable no-param-reassign */
 /* eslint-disable max-len */
 export default class Keyboard {
+  constructor() {
+    this.value = '';
+  }
+
   elements = {
     main: null,
     keysContainer: null,
@@ -35,17 +39,19 @@ export default class Keyboard {
     document.body.appendChild(this.elements.main);
 
     const searchInput = document.querySelector('.searchBar');
-
+    this.value = searchInput.value;
     // Automatically use keyboard for elements with .use-keyboard-input
-    document.querySelectorAll('.keyboardTrigger').forEach((element) => {
-      element.addEventListener('click', () => {
-        this.open(element.value, (currentValue) => {
-          element.value = currentValue;
-          searchInput.value = element.value;
-          searchInput.focus();
-          Search.livesearch();
-        });
+    const keyboardButton = document.querySelector('.keyboardTrigger');
+    keyboardButton.addEventListener('click', () => {
+      this.open(this.value, (currentValue) => {
+        this.value = currentValue;
+        searchInput.value = currentValue;
+        Search.livesearch();
       });
+    });
+
+    searchInput.addEventListener('change', () => {
+      this.value = searchInput.value;
     });
 
     // onclose event handler
@@ -86,17 +92,6 @@ export default class Keyboard {
 
           keyElement.addEventListener('click', () => {
             this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
-            this.triggerEvent('oninput');
-          });
-
-          break;
-
-        case 'enter':
-          keyElement.classList.add('keyboardKeyWide');
-          keyElement.innerHTML = createIconHTML('keyboardReturn');
-
-          keyElement.addEventListener('click', () => {
-            this.properties.value += '\n';
             this.triggerEvent('oninput');
           });
 
