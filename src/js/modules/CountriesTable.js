@@ -1,6 +1,7 @@
 import CurrentCountry from './CurrentCountry';
 import DataFetcher from './DataFetcher';
 import Search from './Search';
+import NOT_AVAILABLE from '../data/CONSTANTS';
 
 export default class CountriesTable {
   static table = document.querySelector('.countriesTableBody');
@@ -41,7 +42,8 @@ export default class CountriesTable {
       tr.setAttribute('name', country.country.toLowerCase());
       tdCountry.textContent = country.country;
       tdCountry.setAttribute('country', country.country.toLowerCase());
-      const dataResult = Number(country[dataType]) > 0 ? Number(country[dataType]).toLocaleString() : 'N/A';
+      const dataResult = Number(country[dataType]) > 0
+        ? Number(country[dataType]).toLocaleString() : NOT_AVAILABLE;
       tdCases.textContent = dataResult;
 
       const flagSpan = document.createElement('span');
