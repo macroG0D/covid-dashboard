@@ -104,6 +104,7 @@ export default class DataFetcher {
     // sort by default by cases amount
     allCountries.sort((a, b) => b.cases - a.cases);
     DataFetcher.insert100k();
+    console.log(allCountries);
     return allCountries;
   }
 
