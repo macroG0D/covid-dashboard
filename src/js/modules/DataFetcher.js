@@ -1,4 +1,8 @@
 import getTodayConvertedDate from './DateConverter';
+import {
+  WORLD_DATA_ALL, WORLD_DATA_TIMELINE, COUNTRIES_DATA, COUNTRIES_DATA_TIMELINE,
+} from '../data/CONSTANTS';
+
 /* eslint-disable max-len */
 /* eslint-disable no-param-reassign */
 export default class DataFetcher {
@@ -62,11 +66,11 @@ export default class DataFetcher {
   }
 
   async getCovidData() {
-    const countriesResponse = await fetch('https://disease.sh/v3/covid-19/countries');
+    const countriesResponse = await fetch(COUNTRIES_DATA);
     const allCountries = await countriesResponse.json();
 
     // GET TIMELINE DATA FOR COUNTRIES
-    const countriesTimeLineStatsResponse = await fetch('https://disease.sh/v3/covid-19/historical/');
+    const countriesTimeLineStatsResponse = await fetch(COUNTRIES_DATA_TIMELINE);
     const countriesTimeLineStats = await countriesTimeLineStatsResponse.json();
     allCountries.forEach((country) => {
       const matchedCountry = countriesTimeLineStats.find((countriesWithTimeLine) => (countriesWithTimeLine.country === country.country) && countriesWithTimeLine.province == null);
@@ -77,8 +81,8 @@ export default class DataFetcher {
       }
     });
     // GET GLOBAL DATA
-    const worldDataResponse = await fetch('https://disease.sh/v3/covid-19/all');
-    const worldTimeLineDataResponse = await fetch('https://covid19-api.org/api/timeline');
+    const worldDataResponse = await fetch(WORLD_DATA_ALL);
+    const worldTimeLineDataResponse = await fetch(WORLD_DATA_TIMELINE);
     const worldTimeLineData = await worldTimeLineDataResponse.json();
     const formatedWorldTimeLineData = DataFetcher.formatWorldTimeLine(worldTimeLineData);
 
