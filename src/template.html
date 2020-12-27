@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.png" type="image/png">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
   <title>Covid-19</title>
 </head>
 
@@ -13,139 +15,60 @@
     <div class="contentWrapper">
       <div class="contentWrapper__contentLeft">
         <div class="moduleWrapper">
-          <div class="global">
-            <h1 class="global__header">Worldwide COVID-19 Cases</h1>
-            <div class="global__total">68 414 122</div>
-          </div>
-        </div>
-        <div class="moduleWrapper">
-          <div class="search">
-            <div class="searchIcon"></div>
-            <input class="search_tab" placeholder="Search">
-            <div class="virtualKeyboard_button"></div>
+          <div class="moduleBlock global">
+            <h1 class="global__header">Worldwide COVID-19 active Cases</h1>
+            <div class="global__total"></div>
+            <div class="fullScreenBtn"></div>
           </div>
         </div>
 
         <div class="moduleWrapper">
-          <div class="countries">
-
-            <table class="tableHeaders countries__fixedHeader">
-              <tbody>
-                <tr>
-                  <th class="short-col">#</th>
-                  <th class="long-col">Country</th>
-                  <th class="long-col">Cases</th>
-                </tr>
-              </tbody>
-            </table>
-
-            <div class="countries__table-wrapper">
-              <table class="countries__mainTable mainTable">
-                <tbody class="countriesTableBody">
-
-                  <tr>
-                    <td class="short-col">1</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">2</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">999</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">1</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">2</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">999</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">1</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">2</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">999</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">1</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">2</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">999</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">1</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">2</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">999</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">1</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">2</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-                  <tr>
-                    <td class="short-col">999</td>
-                    <td class="long-col"><span class="flag"><img src="./assets/icons/tony_logo.png" alt="flag"></span>USA</td>
-                    <td class="long-col">72,742,299</td>
-                  </tr>
-
-                </tbody>
-
-              </table>
+          <div class="moduleBlock searchANDcountriesTableWrapper">
+            <div class="search">
+              <div class="searchIcon"></div>
+              <input class="searchBar" placeholder="Search">
+              <div class="virtualKeyboard_button keyboardTrigger"></div>
             </div>
+            <div class="countries">
 
+              <table class="tableHeaders countries__fixedHeader">
+                <tbody>
+                  <tr>
+                    <th class="short-col">#</th>
+                    <th class="long-col">Country</th>
+                    <th class="long-col" id="countriesStatName">Total Cases</th>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="countries__table-wrapper">
+                <table class="countries__mainTable mainTable">
+                  <tbody class="countriesTableBody">
+                  </tbody>
+                </table>
+              </div>
+              <div class="countries__tabs">
+                <div class="left">
+                  <div class="countriesTabsBtn tabButton pressed" dataType="cases">Total Cases</div>
+                  <div class="countriesTabsBtn tabButton" dataType="recovered">Total Recovered</div>
+                  <div class="countriesTabsBtn tabButton" dataType="deaths">Total Deaths</div>
+                  <div class="countriesTabsBtn tabButton" dataType="todayCases">Today Cases</div>
+                  <div class="countriesTabsBtn tabButton" dataType="todayRecovered">Today Recovered</div>
+                  <div class="countriesTabsBtn tabButton" dataType="todayDeaths">Today Deaths</div>
+                </div>
+                <div class="right">
+                  <div class="countriesTabsSwitch tabButton" dataType="CountriesBtnAbsolute100k">per 100k</div>
+                </div>
+              </div>
+            </div>
+            <div class="fullScreenBtn"></div>
           </div>
         </div>
 
         <div class="moduleWrapper">
-          <div class="details">
+          <div class="moduleBlock summary">
 
-            <table class="tableHeaders details__fixedHeader">
+            <table class="tableHeaders summary__fixedHeader">
               <tbody>
                 <tr>
                   <th>Cases</th>
@@ -155,53 +78,110 @@
               </tbody>
             </table>
 
-            <table class="details__mainTable mainTable">
+            <table class="summary__mainTable mainTable">
               <tbody>
                 <tr>
-                  <td>72,742,299</td>
-                  <td>50,948,658</td>
-                  <td>1,620,823</td>
+                  <td id="summary_cases"></td>
+                  <td id="summary_recovered"></td>
+                  <td id="summary_deaths"></td>
                 </tr>
               </tbody>
             </table>
 
-            <div class="details__tabs">
+            <div class="summary__tabs">
               <div class="left">
-                <div class="tabButton pressed">Total</div>
-                <div class="tabButton">Today</div>
+                <div class="tabButton pressed" id="btnTotal">Total</div>
+                <div class="tabButton" id="btnToday">Today</div>
               </div>
               <div class="right">
-                <div class="tabButton"> <span>Absolute</span> / <span>100k</span></div>
+                <div class="tabButton" id="btnAbsolute100k">per 100k</div>
               </div>
             </div>
-
+            <div class="fullScreenBtn"></div>
           </div>
 
         </div>
 
       </div>
+
       <div class="contentWrapper__contentRight">
         <div class="moduleWrapper">
-          <div class="map">map</div>
+          <div class="moduleBlock map" id="MAP">
+            <div class="legend">
+              <div class="legendItem" size="999">
+                <div class="legendMarker"></div>
+                <div class="legendNumsText"> &lt1,000 </div>
+              </div>
+              <div class="legendItem" size="2999">
+                <div class="legendMarker"></div>
+                <div class="legendNumsText">1,000 - 3,000</div>
+              </div>
+              <div class="legendItem" size="19999">
+                <div class="legendMarker"></div>
+                <div class="legendNumsText">3,000 - 20,000</div>
+              </div>
+              <div class="legendItem" size="49999">
+                <div class="legendMarker"></div>
+                <div class="legendNumsText">20,000 - 50,000</div>
+              </div>
+              <div class="legendItem" size="99999">
+                <div class="legendMarker"></div>
+                <div class="legendNumsText">50,000 - 100,000</div>
+              </div>
+              <div class="legendItem" size="249999">
+                <div class="legendMarker"></div>
+                <div class="legendNumsText">100,000 - 250,000</div>
+              </div>
+              <div class="legendItem" size="499999">
+                <div class="legendMarker"></div>
+                <div class="legendNumsText">250,000 - 500,000</div>
+              </div>
+              <div class="legendItem" size="999999">
+                <div class="legendMarker"></div>
+                <div class="legendNumsText">500,000 - 1,000,000</div>
+              </div>
+              <div class="legendItem" size="4999999">
+                <div class="legendMarker"></div>
+                <div class="legendNumsText">1,000,000 - 5,000,000</div>
+              </div>
+              <div class="legendItem" size="5000000">
+                <div class="legendMarker"></div>
+                <div class="legendNumsText">&gt5,000,000</div>
+              </div>
+
+            </div>
+            <div class="fullScreenBtn"></div>
+          </div>
+
         </div>
+
         <div class="moduleWrapper">
-          <div class="graph">graph</div>
+          <div class="moduleBlock graph">
+            <button id="switchChartBtn" class="switchChartBtn">Total/Today</button>
+            <div class="countryNameOnChartsWrapper">
+              <h2 class="countryNameOnCharts">World</h2>
+            </div>
+            <canvas class="graph__canvas" id="myChart"></canvas>
+            <div class="fullScreenBtn"></div>
+          </div>
         </div>
+
       </div>
     </div>
+    <div class="fullScreenModule"></div>
   </main>
 
   <footer class="footer">
-      <div class="copyright">Covid-19 © 2020</div>
-      <div class="logosWrapper">
-        <a class="logo" href="https://yem.digital" target="_blank"><img src="./assets/icons/yem_digital.svg"
-            alt="Yem Digital Prod"></a>
-        <a class="logo" href="https://rs.school/js/" target="_blank"><img src="./assets/icons/rs_school_js.svg"
-            alt="Rolling Scopes School"></a>
-      </div>
-      <div class="productionTeam">Created by <a href="https://github.com/martin728" target="_blank">Diana.Martin</a> &
-        <a href="https://github.com/macroG0D" target="_blank">TonYem</a>
-      </div>
+    <div class="copyright">Covid-19 © 2020</div>
+    <div class="logosWrapper">
+      <a class="logo" href="https://yem.digital" target="_blank"><img src="./assets/icons/yem_digital.svg"
+          alt="Yem Digital Prod"></a>
+      <a class="logo" href="https://rs.school/js/" target="_blank"><img src="./assets/icons/rs_school_js.svg"
+          alt="Rolling Scopes School"></a>
+    </div>
+    <div class="productionTeam">Created by <a href="https://github.com/martin728" target="_blank">Diana.Martin</a> &
+      <a href="https://github.com/macroG0D" target="_blank">TonYem</a>
+    </div>
   </footer>
 
 </body>
